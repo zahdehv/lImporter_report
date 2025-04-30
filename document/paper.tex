@@ -1,0 +1,58 @@
+\documentclass[12pt, oneside]{book}
+\usepackage{paper} % Your custom style file
+
+\begin{document}
+
+% ===== TITLE PAGE =====
+\pagenumbering{Alph}
+\hypersetup{pageanchor=false}
+\input{parts/_title}
+\cleardoublepage
+
+% ===== FRONT MATTER =====
+\pagenumbering{roman}
+\setcounter{page}{1} % Reset counter for Roman numerals
+\hypersetup{pageanchor=false}
+
+\input{parts/a_dedication}
+\input{parts/b_acknowledgments}
+\setcounter{page}{1} % Reset counter for Roman numerals
+\input{parts/c_supervisorOpinion}
+\input{parts/d_abstract}
+
+% ===== LISTS =====
+\cleardoublepage
+\phantomsection
+% \addcontentsline{toc}{chapter}{\contentsname}
+\tableofcontents
+
+\cleardoublepage
+\phantomsection
+% \addcontentsline{toc}{chapter}{\listfigurename}
+% \listoffigures
+
+\cleardoublepage
+\phantomsection
+% \addcontentsline{toc}{chapter}{\listtablename}
+% \listoftables
+
+% ===== MAIN CONTENT =====
+\cleardoublepage
+\phantomsection
+\pagenumbering{arabic}
+\setcounter{page}{1} % Reset counter for Arabic numerals
+\hypersetup{pageanchor=true}
+
+\input{parts/e_introduction}
+\input{parts/f_proposal}
+\input{parts/g_conclusions}
+
+% ===== BIBLIOGRAPHY =====
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography}
+% \thispagestyle{empty}% % No page number on bib
+
+\end{document}
