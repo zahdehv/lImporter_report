@@ -1,4 +1,4 @@
-\documentclass[12pt, oneside]{book}
+\documentclass[13pt, oneside]{book}
 \usepackage{paper} % Your custom style file
 
 \begin{document}
@@ -15,10 +15,10 @@
 \hypersetup{pageanchor=false}
 
 \input{parts/a_dedication}
-\input{parts/b_acknowledgments}
+%\input{parts/b_acknowledgments}
 \setcounter{page}{1} % Reset counter for Roman numerals
-\input{parts/c_supervisorOpinion}
-\input{parts/d_abstract}
+%\input{parts/c_supervisorOpinion}
+%\input{parts/d_abstract}
 
 % ===== LISTS =====
 \cleardoublepage
@@ -44,15 +44,15 @@
 \hypersetup{pageanchor=true}
 
 \input{parts/e_introduction}
-\input{parts/f_proposal}
-\input{parts/g_conclusions}
+%\input{parts/f_proposal}
+%\input{parts/g_conclusions}
 
 % ===== BIBLIOGRAPHY =====
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{unsrtnat}
-\bibliography{bibliography}
+\bibliography{Thesis}
 % \thispagestyle{empty}% % No page number on bib
 
 \end{document}

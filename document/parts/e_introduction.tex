@@ -1,6 +1,30 @@
 \chapter{Introducción}\label{chapter:introduction}
 
-Hola, esto sí que es una citación, con paréntesis \citep{MS15} \citep{MS15}.
+El ser humano posee un afán inherente por obtener información para comprender el mundo que le rodea. Esta búsqueda constante de conocimiento subraya la necesidad fundamental de disponer de formas accesibles para interactuar con la información. Sin embargo, esta necesidad se enfrenta a las limitaciones intrínsecas de la memoria de trabajo humana, como se evidencia en estudios clásicos sobre nuestra capacidad para procesar y retener información simultáneamente \citep{millerMagicalNumberSeven1956}. En este contexto, las herramientas y metodologías que facilitan la gestión y el acceso a la información juegan un papel crucial.
 
-\section{Estado del Arte}\label{chapter:state-of-the-art}
-El estado del arte siuuuuu
+\section{Estado del Arte}\label{sec:state_of_the_art}
+El estado del arte en el ámbito de la gestión de información y la interacción con sistemas inteligentes abarca diversas áreas, desde métodos tradicionales de organización del conocimiento hasta las más recientes innovaciones en inteligencia artificial.
+
+\subsection{Metodologías de toma de notas}\label{sec:note_taking_methodologies}
+Existen diversas metodologías desarrolladas a lo largo del tiempo para ayudar a estructurar y retener información de manera efectiva durante el aprendizaje o la investigación. % Placeholder for 'here a list'
+
+\subsection{Aplicaciones de toma de notas}\label{sec:note_taking_apps}
+El desarrollo tecnológico ha propiciado la aparición de múltiples aplicaciones diseñadas específicamente para la toma de notas, ofreciendo funcionalidades que van desde la simple captura de texto hasta la organización multimedia y colaborativa. % Placeholder for 'here a list'
+
+\subsection{Herramientas de IA}\label{sec:ai_tools}
+Las herramientas basadas en inteligencia artificial están transformando la manera en que interactuamos con la información, ofreciendo capacidades avanzadas de procesamiento, generación y análisis de datos. % Placeholder for 'here a list'
+
+\subsection{Técnicas de Prompting}\label{sec:prompting_techniques}
+Las técnicas de \textit{prompting} se han convertido en un elemento central para interactuar con modelos de lenguaje grandes (LLMs). Estas técnicas guían la generación de respuestas del modelo y su desarrollo ha sido notable. Inicialmente, se demostró la capacidad de generalización de los modelos a través de ejemplos (\textit{in-context learning} o ICL) sin necesidad de ajustar sus parámetros \citep{brownLanguageModelsAre2020}. Investigaciones posteriores analizaron qué partes de estos ejemplos son cruciales para que el modelo realice la tarea, concluyendo que no siempre es la etiqueta explícita lo fundamental \citep{minRethinkingRoleDemonstrations2022}. Con el aumento de la ventana de contexto de los modelos, se ha evolucionado hacia el aprendizaje con muchos ejemplos (\textit{many-shot learning}) \citep{agarwalManyShotInContextLearning2024}.
+
+Otra línea de investigación se ha centrado en mejorar la calidad de las respuestas pidiendo a los modelos que generen pasos intermedios de razonamiento. Esto incluye enfoques como 'Show Your Work' \citep{nyeShowYourWork2021}, Chain-of-Thought (CoT) \citep{weiChainofThoughtPromptingElicits2023, kojimaLargeLanguageModels2023}, y Plan-and-Solve \citep{wangPlanandSolvePromptingImproving2023}. También se han explorado estrategias basadas en la descomposición de problemas complejos en subproblemas más manejables \citep{fuComplexityBasedPromptingMultiStep2023, zhouLeasttoMostPromptingEnables2023}.
+
+Además, se han propuesto técnicas que explotan la consistencia entre múltiples generaciones del mismo modelo para una misma entrada \citep{wangSelfConsistencyImprovesChain2023} o que utilizan la abducción generando explicaciones de forma recursiva \citep{jungMaieuticPromptingLogically2022}. Para problemas que requieren exploración, se han desarrollado estructuras como árboles (Tree of Thoughts \citep{yaoTreeThoughtsDeliberate2023}) y grafos (Graph of Thoughts \citep{bestaGraphThoughtsSolving2024}) que permiten explorar el espacio de búsqueda de soluciones de manera más sistemática tras la descomposición inicial.
+
+Técnicas más recientes incluyen Step-Back Prompting, que consiste en pedir al modelo que resuelva primero una versión más general y abstracta del problema para derivar principios de alto nivel, evitando así desviarse por detalles específicos de la instancia original. Otras estrategias se enfocan en reformular la entrada o hacer que el modelo reconsidere el problema \citep{mishraReframingInstructionalPrompts2022}, o incluso realizar un metaanálisis sobre el procedimiento a seguir antes de abordar la tarea \citep{gaoMetaReasoningLarge2024}.
+
+\subsection{Agentes}\label{sec:agents}
+Los sistemas de agentes basados en LLMs representan un avance significativo, donde el modelo no solo procesa información sino que puede interactuar con herramientas externas o ejecutar acciones para cumplir objetivos complejos. % Placeholder for 'here a list'
+
+\subsection{Extracción de Afirmaciones (Claims Extraction)}\label{sec:claims_extraction}
+La extracción automática de afirmaciones o 'claims' a partir de texto es un área de investigación relevante, con aplicaciones en la verificación de hechos, el análisis de argumentos y la síntesis de información. % Placeholder for 'here a list'
