@@ -5,7 +5,11 @@
 - actua como un investigador confeccionando un trabajo de tesis
 - es un trabajo de relevancia para el fin de la carrera universitaria del autor
 - siempre usa Grandes Modelos de Lenguaje (el grandes al final queda muy feo)
-- # chapter, ## section, ### subsection #### subsubsection a no ser que haya otra indicacion -->
+- # chapter, ## section, ### subsection #### subsubsection a no ser que haya otra indicacion 
+- the chapter must start:
+\chapter{Introducción}
+\label{chapter:introduccion}
+-->
 
 # introduccion:
 - usar info del libro second brain y taking notes para la importancia de la gestion del conocimiento
@@ -16,18 +20,18 @@
 ## gestion de conocimiento personal(second brain):
 - introducir la ancestral accion de tomar notas (use wiki: Note-taking) (en \paragraph{Note-taking}) (de aqui quiero que cites a [jansenIntegrativeReviewCognitive2017] cuando menciones que "Note-taking is a good strategy to enhance learning and memory")
 - introducir la gestion de conocimiento personal (PKM) usando adjunto de wikipedia: Personal knowledge management citando a [grundspenkisAgentBasedApproach2007]
-    - aqui es importante que introduzcas a los Knowledge workers (wiki: Knowledge worker) como el sector principal relacionado a esta area
+    - aqui es importante que introduzcas a los Knowledge workers como el sector principal relacionado a esta area
 
 ### Metodologias de toma de notas (de la wiki: Note-taking):
 - Usar la lista de Systems, dividiendo en lineales y no lineales
     - en cornell notes citar a [paukHowStudyCollege2010]
 - incluir tambien luego:
-    - mention zettelstaken mentioned in How to take smart notes (slip-box) [ahrensHowTakeSmart2017]
+    - mention zettelstaken mentioned in How to take smart notes (slip-box) [ahrensHowTakeSmart2017] (en ese mismo libro te mencionan la historia del metodo, q no es super reciente)
     - mention the PARA method from Building a Second Brain[forteBuildingSecondBrain2022]
 
 ### bases de conocimiento personal
 - introducir las bases de conocimiento personal (PKB) (usando adjunto de wikipedia: Personal knowledge base)
-- mencionar memex (memory extension) [bushWeMayThink1979], usando adjunto de (wiki: Memex)
+- mencionar memex (memory extension) [bushWeMayThink1945], usando el archivo 'as we may think'
 - menciona 'Data models' (de wikipedia: Personal knowledge base) 
     - las referencias aqui son [1] -> [daviesBuildingMemexSixty], [2] -> [daviesStillBuildingMemex2011], en los estudios de Davies
 
@@ -35,12 +39,9 @@
 - introducir los grafos de conocimiento personal (PKG) (usando adjunto de wikipedia: Personal knowledge base) citando, donde [8] - > [pyneMetaworkHowWe2022]
 
 #### Sistemas digitales de toma de notas
-- introducir con el articulo de la wiki
-De los tres principales me gustaria que trataras la informacion introducida en 'Data models', incluyendo el proceso de transclusion:
-    - Obsidian (usando wiki: Obsidian),
-    - Notion (usando wiki: Notion)
-    - Roam Research (usando wiki: Roam)
-- usar el articulo de la wiki: Comparison of note-taking software, para ampliar ejemplos (mencionar unas pocas)
+- introducir, dando una vuelta bonita con la relacion con el memex
+- introducir los diferences sistemas (En OBSIDIAN.md, las alternativas que aparecen, no debes crear un apendice ni tabla adicional, la informacion requerida va autocontenida en la parte de la introduccion correspondiente)
+- De obsidian, introducirlo con un poco mas de detalle, incluyendo los 'Data models' de Personal knowledge base(o sea como los implementa, notas en md, etc) incluyendo el concepto de transclusion(a traves de los links y el grafo de conocimiento)
 
 ## Grandes Modelos de lenguaje (LLM)
 - Introducir los modelos de lenguaje y citar reportes tecnicos (gpt4[openaiGPT4TechnicalReport2024], gemini[teamGeminiFamilyHighly2024], y la competencia foss deepseek[deepseek-aiDeepSeekV3TechnicalReport2024], qwen[baiQwenTechnicalReport2023], llama[grattafioriLlama3Herd2024])
@@ -66,11 +67,11 @@ De los tres principales me gustaria que trataras la informacion introducida en '
 - (esta lista potencialmente podria ser ordenada para una mayor coherencia con las fechas o conceptos(estos son mas importantes, muchas ideas similares han aparecido en este campo))
 - Cumulative Reasoning first generates several potential steps in answering the question. It then has a LLM evaluate them, deciding to either accept or reject these steps. Finally, it checks whether it has arrived at the final answer. If so, it terminates the process, but otherwise it repeats it[zhangCumulativeReasoningLarge2025]
 
-### agents:
+### agentes basados en LLM:
 - Mencionar que el potencial de los LLM radica principalmente en la autonomia y capacidad de realizar tareas usando herramientas en lugar del humano, aprovechando las ventajas que tienen para el manejo de la informacion
     - As LLMs have improved rapidly in capabilities companies and researchers have explored how to allow them to make use of external systems. This has been necessitated by shortcomings of LLMs in areas such as mathematical computations, reasoning, and factuality
 - Modular Reasoning, Knowledge, and Language (MRKL) System [karpasMRKLSystemsModular2022] is one of the simplest formulations of an agent. It contains a LLM router providing access to multiple tools. The router can make multiple calls to get information such as weather or the current date. It then combines this information to generate a final response. 
-- Program-aided Language Model (PAL) [gaoPALProgramaidedLanguage2023] translates a problem directly into code, which is sent to a Python interpreter to generate an answer and Tool-Integrated Reasoning Agent (ToRA) (Gou et al., 2024b) that instead of a single code generation step, it interleaves code and reasoning steps for as long as necessary to solve the problem
+- Program-aided Language Model (PAL) [gaoPALProgramaidedLanguage2023] translates a problem directly into code, which is sent to a Python interpreter to generate an answer and Tool-Integrated Reasoning Agent (ToRA) [gouToRAToolIntegratedReasoning2024] that instead of a single code generation step, it interleaves code and reasoning steps for as long as necessary to solve the problem
 - Reasoning and Acting (ReAct) [yaoReActSynergizingReasoning2023] generates a thought, takes an action, and receives an observation (and repeats this process) when given a problem to solve. All of this information is inserted into the prompt so it has a memory of past thoughts, actions, and observations (observation based agent); and Reflexion[shinnReflexionLanguageAgents2023] (which builds upon react), a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials.
 - Retrieval Augmented Generation (RAG) In the context of GenAI agents, RAG is a paradigm in which information is retrieved from an external source and inserted into the prompt. This can enhance performance in knowledge intensive tasks [lewisRetrievalAugmentedGenerationKnowledgeIntensive2021]. When retrieval itself is used as an external tool, RAG systems are considered to be agents
 
@@ -78,4 +79,4 @@ De los tres principales me gustaria que trataras la informacion introducida en '
 - here i want you to include tools using LLM in the KBM context (use files llm_tools_dr_gm.md and llm_tools_dr_gp.md)
 
 ## Objetivos
-- aqui quiero que menciones que el objetivo del trabajo es dar un paso en la automatizacion de la construccion incremental y progresiva de bases de conocimiento (como fue tratado en [fragaAutomaticGenerationKnowledge2023]), pero usando las ventajas de los modelos de lenguaje con el fin de generar informacion en el contexto de las bases de conocimiento, particularmente el caso de notas semiestructuradas (usando un lenguaje markup) relacionadas entre si, formando un grafo de conocimiento, y cubriendo, por la libertad de las mismas, las diferentes metodologias y sistemas de toma de notas. 
+- aqui quiero que menciones que el objetivo del trabajo es dar un paso en la automatizacion de la construccion incremental y progresiva de bases de conocimiento (como fue tratado en [fragaAutomaticGenerationKnowledge2023], y buscando continuar esta linea), pero usando las ventajas de los modelos de lenguaje con el fin de generar informacion en el contexto de las bases de conocimiento, particularmente el caso de notas semiestructuradas (usando un lenguaje markup) relacionadas entre si, formando un grafo de conocimiento, y cubriendo, por la libertad de las mismas, las diferentes metodologias y sistemas de toma de notas(Incluir que hasta donde llegan los conocimientos del autor no habia una herramienta con {esta} finalidad).  
