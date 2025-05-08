@@ -28,20 +28,21 @@
 ### bases de conocimiento personal
 - introducir las bases de conocimiento personal (PKB) usando adjunto de wikipedia
 - mencionar memex (memory extension) [bushWeMayThink1979], usando adjunto de wiki
+- menciona 'Data models'
+- las referencias aqui son [1] -> [daviesBuildingMemexSixty], [2] -> [daviesStillBuildingMemex2011]
 
 #### grafos de conocimiento personal (esto va en un \paragraph{})
-- introducir los grafos de conocimiento personal (PKG) usando adjunto de wikipedia
+- introducir los grafos de conocimiento personal (PKG) usando adjunto de wikipedia [8] - > [pyneMetaworkHowWe2022]
 
 #### Sistemas digitales de toma de notas
 - introducir con el articulo de la wiki
 - Obsidian
 - Notion
 - Roam Research
-- usar el articulo de la wiki para ampliar ejemplos (las principales a mencionar, y la forma q tienen (usar la wiki de cada una como fuente de informacion))
+- usar el articulo de la wiki para ampliar ejemplos (las principales a mencionar, y la forma q tienen (usar la wiki de cada una(de Notion Obsidian y Roam) como fuente de informacion)), las demas solo mencionar unas pocas, formas de uso, caracteristicas, etc
 
 ## Grandes Modelos de lenguaje (LLM)
 - Introducir los modelos de lenguaje y citar reportes tecnicos (gpt4[openaiGPT4TechnicalReport2024], gemini[teamGeminiFamilyHighly2024], y la competencia foss deepseek[deepseek-aiDeepSeekV3TechnicalReport2024], qwen[baiQwenTechnicalReport2023], llama[grattafioriLlama3Herd2024])
-- Mencionar las principales formas de uso y herramientas existentes: a list (se incluyen esta forma y esta con tal y tal objetivo)
 
 ### prompting techniques:
 - mencionar que es necesario conocer las formas de interactuar con estos modelos de lenguaje para sacar partido a sus capacidades
@@ -71,3 +72,5 @@
 - Program-aided Language Model (PAL) [gaoPALProgramaidedLanguage2023] translates a problem directly into code, which is sent to a Python interpreter to generate an answer and Tool-Integrated Reasoning Agent (ToRA) (Gou et al., 2024b) that instead of a single code generation step, it interleaves code and reasoning steps for as long as necessary to solve the problem
 - Reasoning and Acting (ReAct) [yaoReActSynergizingReasoning2023] generates a thought, takes an action, and receives an observation (and repeats this process) when given a problem to solve. All of this information is inserted into the prompt so it has a memory of past thoughts, actions, and observations (observation based agent); and Reflexion[shinnReflexionLanguageAgents2023] (which builds upon react), a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback. Concretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials.
 - Retrieval Augmented Generation (RAG) In the context of GenAI agents, RAG is a paradigm in which information is retrieved from an external source and inserted into the prompt. This can enhance performance in knowledge intensive tasks [lewisRetrievalAugmentedGenerationKnowledgeIntensive2021]. When retrieval itself is used as an external tool, RAG systems are considered to be agents
+
+## Integracion de herramientas basadas en LLM en applicaciones de toma de notas
