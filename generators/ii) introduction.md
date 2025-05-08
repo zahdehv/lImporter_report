@@ -1,45 +1,46 @@
 <!-- instrucciones (meta-informacion, no va en el latex):
 - usar las referencias tal como aparecen entre []
 - no usar listas, las listas de abajo son secuencias de informaciones a incluir
-- usar \citep en lugar de \cite
+- usar \citep en lugar de \cite. Si se menciona explicitamente (e.g. como fue investigado en {cita}) si se puede usar \cite
 - actua como un investigador confeccionando un trabajo de tesis
 - es un trabajo de relevancia para el fin de la carrera universitaria del autor
 - siempre usa Grandes Modelos de Lenguaje (el grandes al final queda muy feo)
 - # chapter, ## section, ### subsection #### subsubsection a no ser que haya otra indicacion -->
 
-<!-- research wisdom engine .... tools extract and sum-->
-
 # introduccion:
-- usar info del libro second brain, taking notes y el otro buajaja
+- usar info del libro second brain y taking notes para la importancia de la gestion del conocimiento
 - hablar del potencial de los LLM para lo de arriba y de la utilidad de la automatizacion de esta integracion de conocimiento
 
 <!-- state of the art (): -->
 
 ## gestion de conocimiento personal(second brain):
-- introducir la ancestral accion de tomar notas (use wiki) (en \paragraph{Note-taking})
-- introducir la gestion de conocimiento personal (PKM) usando adjunto de wikipedia
+- introducir la ancestral accion de tomar notas (use wiki: Note-taking) (en \paragraph{Note-taking}) (de aqui quiero que cites a [jansenIntegrativeReviewCognitive2017] cuando menciones que "Note-taking is a good strategy to enhance learning and memory")
+- introducir la gestion de conocimiento personal (PKM) usando adjunto de wikipedia: Personal knowledge management citando a [grundspenkisAgentBasedApproach2007]
+    - aqui es importante que introduzcas a los Knowledge workers (wiki: Knowledge worker) como el sector principal relacionado a esta area
 
-### Metodologias de toma de notas:
-- cornell notes [paukHowStudyCollege2010]
-- zettelstaken (slip box)
-- PARA [forteBuildingSecondBrain2022] (esto es mas bien para organizar el conocimiento)
-- seguir lista
+### Metodologias de toma de notas (de la wiki: Note-taking):
+- Usar la lista de Systems, dividiendo en lineales y no lineales
+    - en cornell notes citar a [paukHowStudyCollege2010]
+- incluir tambien luego:
+    - mention zettelstaken mentioned in How to take smart notes (slip-box) [ahrensHowTakeSmart2017]
+    - mention the PARA method from Building a Second Brain[forteBuildingSecondBrain2022]
 
 ### bases de conocimiento personal
-- introducir las bases de conocimiento personal (PKB) usando adjunto de wikipedia
-- mencionar memex (memory extension) [bushWeMayThink1979], usando adjunto de wiki
-- menciona 'Data models'
-- las referencias aqui son [1] -> [daviesBuildingMemexSixty], [2] -> [daviesStillBuildingMemex2011]
+- introducir las bases de conocimiento personal (PKB) (usando adjunto de wikipedia: Personal knowledge base)
+- mencionar memex (memory extension) [bushWeMayThink1979], usando adjunto de (wiki: Memex)
+- menciona 'Data models' (de wikipedia: Personal knowledge base) 
+    - las referencias aqui son [1] -> [daviesBuildingMemexSixty], [2] -> [daviesStillBuildingMemex2011], en los estudios de Davies
 
 #### grafos de conocimiento personal (esto va en un \paragraph{})
-- introducir los grafos de conocimiento personal (PKG) usando adjunto de wikipedia [8] - > [pyneMetaworkHowWe2022]
+- introducir los grafos de conocimiento personal (PKG) (usando adjunto de wikipedia: Personal knowledge base) citando, donde [8] - > [pyneMetaworkHowWe2022]
 
 #### Sistemas digitales de toma de notas
 - introducir con el articulo de la wiki
-- Obsidian
-- Notion
-- Roam Research
-- usar el articulo de la wiki para ampliar ejemplos (las principales a mencionar, y la forma q tienen (usar la wiki de cada una(de Notion Obsidian y Roam) como fuente de informacion)), las demas solo mencionar unas pocas, formas de uso, caracteristicas, etc
+De los tres principales me gustaria que trataras la informacion introducida en 'Data models', incluyendo el proceso de transclusion:
+    - Obsidian (usando wiki: Obsidian),
+    - Notion (usando wiki: Notion)
+    - Roam Research (usando wiki: Roam)
+- usar el articulo de la wiki: Comparison of note-taking software, para ampliar ejemplos (mencionar unas pocas)
 
 ## Grandes Modelos de lenguaje (LLM)
 - Introducir los modelos de lenguaje y citar reportes tecnicos (gpt4[openaiGPT4TechnicalReport2024], gemini[teamGeminiFamilyHighly2024], y la competencia foss deepseek[deepseek-aiDeepSeekV3TechnicalReport2024], qwen[baiQwenTechnicalReport2023], llama[grattafioriLlama3Herd2024])
@@ -74,3 +75,7 @@
 - Retrieval Augmented Generation (RAG) In the context of GenAI agents, RAG is a paradigm in which information is retrieved from an external source and inserted into the prompt. This can enhance performance in knowledge intensive tasks [lewisRetrievalAugmentedGenerationKnowledgeIntensive2021]. When retrieval itself is used as an external tool, RAG systems are considered to be agents
 
 ## Integracion de herramientas basadas en LLM en applicaciones de toma de notas
+- here i want you to include tools using LLM in the KBM context (use files llm_tools_dr_gm.md and llm_tools_dr_gp.md)
+
+## Objetivos
+- aqui quiero que menciones que el objetivo del trabajo es dar un paso en la automatizacion de la construccion incremental y progresiva de bases de conocimiento (como fue tratado en [fragaAutomaticGenerationKnowledge2023]), pero usando las ventajas de los modelos de lenguaje con el fin de generar informacion en el contexto de las bases de conocimiento, particularmente el caso de notas semiestructuradas (usando un lenguaje markup) relacionadas entre si, formando un grafo de conocimiento, y cubriendo, por la libertad de las mismas, las diferentes metodologias y sistemas de toma de notas. 
