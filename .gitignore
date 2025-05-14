@@ -4,3 +4,12 @@ document/paper.synctex.gz
 temp/
 bash.exe.stackdump
 document/paper.bbl
+document/paper.aux
+document/paper.bcf
+document/paper.blg
+document/paper.log
+document/paper.out
+document/paper.run.xml
+document/paper.toc
+compile_latex.bat
+paper.pdf

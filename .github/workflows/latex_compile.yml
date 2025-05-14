@@ -1,20 +1,20 @@
-name: Compile LaTeX Document (pdflatex + biber)
+name: Compile LaTeX Document
 
 on:
   push:
     branches:
-      - main # Or your default branch, e.g., master
-    paths:
-      - 'document/**.tex' # Only run if .tex files in 'document/' change
-      - 'document/**.bib' # Or .bib files
-      - '.github/workflows/latex_compile.yml' # Or if the workflow itself changes
-  pull_request:
-    branches:
-      - main # Or your default branch
+      - main
     paths:
       - 'document/**.tex'
       - 'document/**.bib'
-  workflow_dispatch: # Allows manual triggering from the Actions tab
+      - '.github/workflows/latex_compile.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'document/**.tex'
+      - 'document/**.bib'
+  workflow_dispatch:
 
 jobs:
   build_latex:
@@ -23,28 +23,24 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # CRITICAL STEP: Install TeX Live
       - name: Set up TeX Live
-        # Using xu-cheng/texlive-action for broader package support including biber
         uses: xu-cheng/texlive-action@v2
         with:
-          scheme: full # 'full' scheme includes biber and most common packages.
-                       # You could use 'basic' and specify 'packages: biber pdflatex'
-                       # and any other LaTeX packages your document needs, but 'full' is safer.
-          # Optional: Specify TeX Live version for cache stability
+          # 'full' installs a comprehensive TeX Live, including latexmk, pdflatex, biber,
+          # and most common packages. This is the most reliable option.
+          scheme: full
+          # Optional: Specify a TeX Live version if needed for consistency or cache
           # texlive_version: "2023"
 
-      - name: Compile LaTeX document (pdflatex + biber)
-        # We will change to the 'document' directory to run the commands
+      - name: Compile LaTeX document with latexmk
         working-directory: ./document
         run: |
-          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
-          biber paper # Note: biber usually takes the basename of the .tex file
-          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
-          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
+          latexmk -pdf -file-line-error -interaction=nonstopmode -shell-escape paper.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper-pdf # Name of the artifact bundle
-          path: document/paper.pdf # Path to the generated PDF file
-          if-no-files-found: error # Fail the workflow if PDF is not found
+          name: paper-pdf
+          path: document/paper.pdf
+          if-no-files-found: error
