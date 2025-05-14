@@ -27,11 +27,13 @@ jobs:
       - name: Set up TeX Live
         uses: xu-cheng/texlive-action@v2
         with:
-          # 'full' installs a comprehensive TeX Live, including latexmk, pdflatex, biber,
-          # and most common packages. This is the most reliable option.
           scheme: full
-          # Optional: Specify a TeX Live version if needed for consistency or cache
-          # texlive_version: "2023"
+          texlive_version: "2023"
+
+      # Debugging Step: Verify Installation
+      - name: Verify TeX Live installation
+        run: |
+          latexmk --version || echo "latexmk is not installed"
 
       - name: Compile LaTeX document with latexmk
         working-directory: ./document
