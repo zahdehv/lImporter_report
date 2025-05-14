@@ -1,6 +1,6 @@
 \documentclass[13pt, oneside]{book}
 \usepackage{paper} % Your custom style file
-
+\addbibresource{Thesis.bib}
 \begin{document}
 
 % ===== TITLE PAGE =====
@@ -14,7 +14,7 @@
 \setcounter{page}{1} % Reset counter for Roman numerals
 \hypersetup{pageanchor=false}
 
-\input{parts/a_dedication}
+% \input{parts/a_dedication}
 %\input{parts/b_acknowledgments}
 \setcounter{page}{1} % Reset counter for Roman numerals
 %\input{parts/c_supervisorOpinion}
@@ -25,7 +25,7 @@
 \phantomsection
 % \addcontentsline{toc}{chapter}{\contentsname}
 \tableofcontents
-
+\hypersetup{linkcolor=magenta, citecolor=green, urlcolor=magenta}
 \cleardoublepage
 \phantomsection
 % \addcontentsline{toc}{chapter}{\listfigurename}
@@ -51,8 +51,11 @@
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
-\bibliographystyle{unsrtnat}
-\bibliography{Thesis}
+\printbibliography
+
+% \bibliographystyle{abbrvnat}
+% \bibliography{Thesis}
+
 % \thispagestyle{empty}% % No page number on bib
 
 \end{document}

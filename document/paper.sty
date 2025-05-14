@@ -229,16 +229,18 @@ Available at \url{#2}}}}
 % ---- Format bibliography ----
 
 % Enhance bibliography
-\usepackage{natbib}
+% \usepackage{natbib}
+% Use style=authortitle to verify citations correcteness
+\usepackage[backend=biber, style=authoryear, maxcitenames=3, maxbibnames=5]{biblatex}
 
 % Eliminate author-year separation in citations
-\setcitestyle{aysep={}}
+% \setcitestyle{aysep={}}
 
 % Set font size in bibliography
 \renewcommand{\bibfont}{\small}
 
 % Set spacing between references
-\setlength{\bibsep}{0pt}
+% \setlength{\bibsep}{0pt}
 
 % Set indentation of references
 \setlength{\bibhang}{\parindent}
@@ -274,7 +276,7 @@ Available at \url{#2}}}}
 }
 
 \usepackage[spanish]{babel}
-
+\usepackage{csquotes}   
 % ---- Enable hyperlinks  ----
 % \usepackage[pdftex,hidelinks,hypertexnames=false,pdfpagemode=UseNone,pdfdisplaydoctitle=true, backref=page]{hyperref}
 
@@ -283,7 +285,7 @@ Available at \url{#2}}}}
     linkcolor=black,
     citecolor=green,
     urlcolor=magenta,
-    pagebackref=true,
+    % pagebackref=true,
     hypertexnames=false,
     linktoc=all]{hyperref}
 
@@ -299,16 +301,16 @@ Available at \url{#2}}}}
 % }
 
 % brackets style
-\renewcommand*{\backrefalt}[4]{%
-  \ifcase #1
-    \relax
-  \or
-    [#2]%
-  \else
-    [#2]%
-  \fi
-}
+% \renewcommand*{\backrefalt}[4]{%
+%   \ifcase #1
+%     \relax
+%   \or
+%     [#2]%
+%   \else
+%     [#2]%
+%   \fi
+% }
 
-\renewcommand*{\backrefsep}{, }
-\renewcommand*{\backreftwosep}{ ,~}
-\renewcommand*{\backreflastsep}{ ,~}
+% \renewcommand*{\backrefsep}{, }
+% \renewcommand*{\backreftwosep}{ ,~}
+% \renewcommand*{\backreflastsep}{ ,~}

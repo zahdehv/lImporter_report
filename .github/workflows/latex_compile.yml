@@ -1,0 +1,48 @@
+name: Compile LaTeX Document
+
+on:
+  push:
+    branches:
+      - main # Or your default branch, e.g., master
+    paths:
+      - 'document/**.tex' # Only run if .tex files in 'document/' change
+      - 'document/**.bib' # Or .bib files
+      - '.github/workflows/latex_compile.yml' # Or if the workflow itself changes
+  pull_request:
+    branches:
+      - main # Or your default branch
+    paths:
+      - 'document/**.tex'
+      - 'document/**.bib'
+  workflow_dispatch: # Allows manual triggering from the Actions tab
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up LaTeX with Tectonic (or TeX Live)
+        # Using xu-cheng/texlive-action for broader package support including biber
+        uses: xu-cheng/texlive-action@v2
+        with:
+          scheme: full # 'full' scheme includes biber and most common packages.
+                       # For smaller installs, you could use 'basic' and specify
+                       # 'packages: biber latexmk' but 'full' is safer.
+          # Optional: Specify TeX Live version for cache stability
+          # texlive_version: "2023"
+
+      - name: Compile LaTeX document (paper.tex)
+        # We will change to the 'document' directory to run latexmk
+        # latexmk will automatically run pdflatex and biber as needed.
+        working-directory: ./document
+        run: |
+          latexmk -pdf -file-line-error -interaction=nonstopmode -shell-escape paper.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-pdf # Name of the artifact bundle
+          path: document/paper.pdf # Path to the generated PDF file
+          if-no-files-found: error # Fail the workflow if PDF is not found
