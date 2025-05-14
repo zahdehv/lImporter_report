@@ -13,3 +13,7 @@ document/paper.run.xml
 document/paper.toc
 compile_latex.bat
 paper.pdf
+document/paper.fdb_latexmk
+document/paper.fls
+document/paper-blx.bib
+document/paper.bbl-SAVE-ERROR

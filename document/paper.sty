@@ -205,11 +205,6 @@ Available at \url{#2}}}}
 \IfValueT{#1}{\textit{#1}:\quad}%
 #2}}
 
-% ---- Format equations ----
-
-% Set tolerance for page breaks in multiline equations
-% \AtBeginDocument{\allowdisplaybreaks[1]}
-
 % ---- Format lists ----
 
 % Customize lists
@@ -223,43 +218,7 @@ Available at \url{#2}}}}
 \setlist[enumerate,1]{leftmargin=\parindent,label=\color{gray}{\upshape\alph*.}} % First level
 \setlist[enumerate,2]{leftmargin=2\parindent,label=\color{gray}{\upshape\roman*.}} % Second level
 
-% Eliminate extra spacing between items
 \setlist{nosep}
-
-% ---- Format bibliography ----
-
-% Enhance bibliography
-% \usepackage{natbib}
-% Use style=authortitle to verify citations correcteness
-\usepackage[backend=biber, style=authoryear, maxcitenames=3, maxbibnames=5]{biblatex}
-
-% Eliminate author-year separation in citations
-% \setcitestyle{aysep={}}
-
-% Set font size in bibliography
-\renewcommand{\bibfont}{\small}
-
-% Set spacing between references
-% \setlength{\bibsep}{0pt}
-
-% Set indentation of references
-\setlength{\bibhang}{\parindent}
-
-% ---- Format appendix ----
-
-\AfterEndEnvironment{thebibliography}{
-%
-% Reset counters
-\setcounter{theorem}{0}
-\setcounter{proposition}{0} 
-\setcounter{lemma}{0}
-\setcounter{corollary}{0}
-\setcounter{definition}{0}
-\setcounter{assumption}{0}
-\setcounter{remark}{0}
-\setcounter{table}{0}
-\setcounter{figure}{0}
-\setcounter{equation}{0} 
 
 % Add "A" in front of labels
 \renewcommand{\thetheorem}{A\arabic{theorem}}
@@ -272,45 +231,25 @@ Available at \url{#2}}}}
 \renewcommand{\thetable}{A\arabic{table}}
 \renewcommand{\thefigure}{A\arabic{figure}}
 \renewcommand{\theequation}{A\arabic{equation}}
-%
-}
 
+% language
 \usepackage[spanish]{babel}
 \usepackage{csquotes}   
-% ---- Enable hyperlinks  ----
-% \usepackage[pdftex,hidelinks,hypertexnames=false,pdfpagemode=UseNone,pdfdisplaydoctitle=true, backref=page]{hyperref}
 
-% HYPERREF CONFIG (MUST BE LAST PACKAGE)
+% bib
+% \usepackage[backend=bitex, url=false, backref=true, style=authoryear, sorting=none, maxcitenames=1, maxbibnames=3]{biblatex}
+% \usepackage[backend=biber, url=false, backref=true, style=authoryear, sorting=none, maxcitenames=1, maxbibnames=3]{biblatex}
+\usepackage[backend=biber, url=false, backref=true, style=authortitle, sorting=none, maxcitenames=1, maxbibnames=3]{biblatex}
+\renewcommand*{\bibfont}{\small}
+\DefineBibliographyStrings{spanish}{
+  backrefpage={ver página},
+  backrefpages={ver páginas}
+}
+
+% hyperref
 \usepackage[colorlinks=true,
     linkcolor=black,
     citecolor=green,
     urlcolor=magenta,
-    % pagebackref=true,
     hypertexnames=false,
     linktoc=all]{hyperref}
-
-% Custom backref text spanish
-% \renewcommand*{\backrefalt}[4]{%
-%   \ifcase #1
-%     \relax
-%   \or
-%     (Citado en la p\'agina~#2)%
-%   \else
-%     (Citado en las p\'aginas~#2)%
-%   \fi
-% }
-
-% brackets style
-% \renewcommand*{\backrefalt}[4]{%
-%   \ifcase #1
-%     \relax
-%   \or
-%     [#2]%
-%   \else
-%     [#2]%
-%   \fi
-% }
-
-% \renewcommand*{\backrefsep}{, }
-% \renewcommand*{\backreftwosep}{ ,~}
-% \renewcommand*{\backreflastsep}{ ,~}
