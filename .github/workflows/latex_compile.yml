@@ -1,4 +1,4 @@
-name: Compile LaTeX Document
+name: Compile LaTeX Document (pdflatex + biber)
 
 on:
   push:
@@ -23,22 +23,24 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up LaTeX with Tectonic (or TeX Live)
+      - name: Set up TeX Live
         # Using xu-cheng/texlive-action for broader package support including biber
         uses: xu-cheng/texlive-action@v2
         with:
           scheme: full # 'full' scheme includes biber and most common packages.
-                       # For smaller installs, you could use 'basic' and specify
-                       # 'packages: biber latexmk' but 'full' is safer.
+                       # You could use 'basic' and specify 'packages: biber pdflatex'
+                       # and any other LaTeX packages your document needs, but 'full' is safer.
           # Optional: Specify TeX Live version for cache stability
           # texlive_version: "2023"
 
-      - name: Compile LaTeX document (paper.tex)
-        # We will change to the 'document' directory to run latexmk
-        # latexmk will automatically run pdflatex and biber as needed.
+      - name: Compile LaTeX document (pdflatex + biber)
+        # We will change to the 'document' directory to run the commands
         working-directory: ./document
         run: |
-          latexmk -pdf -file-line-error -interaction=nonstopmode -shell-escape paper.tex
+          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
+          biber paper # Note: biber usually takes the basename of the .tex file
+          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
+          pdflatex -interaction=nonstopmode -file-line-error -shell-escape paper.tex
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
