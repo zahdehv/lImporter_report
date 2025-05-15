@@ -11,32 +11,20 @@
 \input{parts/_title}
 \cleardoublepage{}
 
+
 % ===== FRONT MATTER =====
 \pagenumbering{roman}
 \setcounter{page}{1} % Reset counter for Roman numerals
 \hypersetup{pageanchor=false}
-
 % \input{parts/a_dedication}
 %\input{parts/b_acknowledgments}
 \setcounter{page}{1} % Reset counter for Roman numerals
 %\input{parts/c_supervisorOpinion}
 %\input{parts/d_abstract}
 
-% ===== LISTS =====
-\cleardoublepage{}
-\phantomsection{}
-% \addcontentsline{toc}{chapter}{\contentsname}
-\tableofcontents
-\hypersetup{linkcolor=magenta, citecolor=green, urlcolor=magenta}
-\cleardoublepage{}
-\phantomsection{}
-% \addcontentsline{toc}{chapter}{\listfigurename}
-% \listoffigures
 
-\cleardoublepage{}
-\phantomsection{}
-% \addcontentsline{toc}{chapter}{\listtablename}
-% \listoftables
+\input{parts/_index.tex}
+
 
 % ===== MAIN CONTENT =====
 \cleardoublepage{}
@@ -44,10 +32,10 @@
 \pagenumbering{arabic}
 \setcounter{page}{1} % Reset counter for Arabic numerals
 \hypersetup{pageanchor=true}
-
 \input{parts/e_introduction}
 %\input{parts/f_proposal}
 %\input{parts/g_conclusions}
+
 
 % ===== BIBLIOGRAPHY =====
 \cleardoublepage{}
