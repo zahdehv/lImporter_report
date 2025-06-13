@@ -14,26 +14,45 @@ donde $V'$ es la bóveda actualizada, que contiene nuevas notas, modificaciones 
     \label{fig:importer_schema}
 \end{figure}
 
+Para la implementación de \textit{lImporter}, se propone un agente autónomo basado en el paradigma ReAct (Reasoning and Acting). Este agente está dotado de un conjunto de herramientas especializadas que le permiten interactuar directamente con la bóveda de Obsidian, leyendo su estructura, obteniendo el contenido de las notas y escribiendo nueva información.
+
+La explicación de la arquitectura se realizará de manera \textit{top-down}. Se comenzará describiendo el entorno y el funcionamiento general del agente, para luego profundizar en cada uno de sus componentes clave: el mecanismo de interacción con la bóveda y las estrategias para la obtención de contexto relevante.
+
 \section{Descripción del entorno}
 El entorno de trabajo para este proyecto es Obsidian. A diferencia de otras herramientas basadas en la nube, el modelo de datos de Obsidian es simple y robusto: una carpeta local en el sistema de archivos del usuario que contiene todos los datos. Las notas se almacenan como archivos de texto plano en formato Markdown (`.md`), y pueden organizarse en una jerarquía de carpetas tradicional. Este enfoque garantiza la portabilidad, la longevidad y el control total del usuario sobre su información.
 
-Una de las características más distintivas de Obsidian es su capacidad para visualizar las conexiones entre notas como un grafo de conocimiento. Cada nota es un nodo en el grafo, y los vínculos entre notas se representan como aristas. Esto permite al usuario descubrir relaciones emergentes y navegar por su conocimiento de una manera no lineal.
+Una de las características más distintivas de Obsidian es su capacidad para visualizar las conexiones entre notas como un grafo de conocimiento. Cada nota es un nodo en el grafo, y los vínculos entre notas se representan como aristas. Esto permite al usuario descubrir relaciones emergentes y navegar por su conocimiento de una manera no lineal. El grafo de Obsidian es un \textbf{grafo dirigido por fuerzas} (\textit{force-directed graph}), una simulación física donde los nodos se repelen entre sí, mientras que los enlaces actúan como resortes que los atraen. Este mecanismo provoca que los nodos con conexiones en común, incluso indirectas, se agrupen visualmente, revelando clústeres temáticos de forma intuitiva (ver Figura~\ref{fig:obsidian_force_graph_example}).
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/obsidian_kg_example.png}
+    \includegraphics[width=0.66\textwidth]{figures/obsidian_kg_example.png}
     \caption{Ejemplo de la vista de grafo en Obsidian, mostrando nodos y sus interconexiones.}
     \label{fig:obsidian_graph}
 \end{figure}
 
-La creación de vínculos es fundamental para construir el grafo. En Obsidian, esto se logra mediante la sintaxis de \textit{wikilinks}, simplemente encerrando el nombre de otra nota entre dobles corchetes, por ejemplo, `[[Nota Destino]]`. Además de los vínculos simples, Obsidian soporta el concepto de \textbf{transclusión}, que permite incrustar el contenido de una nota (o una sección de ella) dentro de otra usando la sintaxis `![[Nota a Incrustar]]`. La transclusión crea un vínculo compuesto y fuerte, ya que el contenido de una nota se convierte en parte integral de otra, fomentando la atomicidad y la reutilización de la información.
+La creación de vínculos es fundamental para construir el grafo. En Obsidian, esto se logra mediante la sintaxis de \textit{wikilinks}, simplemente encerrando el nombre de otra nota entre dobles corchetes, por ejemplo, `[[Nota Destino]]`. Además de los vínculos simples, Obsidian soporta la \textbf{transclusión}, que permite incrustar el contenido de una nota (o una sección de ella) dentro de otra usando la sintaxis `![[Nota a Incrustar]]`. En la estructura del grafo, tanto un vínculo simple `[[...]]` como una transclusión `![[...]]` crean una conexión directa y equivalente entre los nodos correspondientes, contribuyendo por igual a la dinámica de fuerzas. La transclusión, por tanto, enriquece el contenido de la nota sin alterar la naturaleza del vínculo en el grafo.
 
-\section{Detalles de Implementación}
-Para la implementación de \textit{lImporter}, se propone un agente autónomo basado en el paradigma ReAct (Reasoning and Acting). Este agente está dotado de un conjunto de herramientas especializadas que le permiten interactuar directamente con la bóveda de Obsidian, leyendo su estructura, obteniendo el contenido de las notas y escribiendo nueva información.
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/LLM_tag_graph.png}
+        % \caption{Vista del grafo centrada en la etiqueta \#Large Language Models.}
+        \label{fig:llm_tag}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/LLM_note_graph.png}
+        % \caption{Vista del grafo centrada en la nota Large Language Models.md.}
+        \label{fig:llm_note}
+    \end{subfigure}
+    \caption{Comparación de la vecindad de la etiqueta \texttt{\#Large\_Language\_Models} y la nota \texttt{Large\_Language\_Models.md}.}
+    \label{fig:obsidian_force_graph_example}
+    \note{La proximidad visual entre el nodo de la etiqueta (izquierda) y el nodo de la nota (derecha) es un efecto directo del diseño basado en fuerzas. Al estar ambos conectados a un conjunto casi idéntico de notas, son atraídos hacia sus vecinos comunes, lo que resulta en su agrupación natural dentro del grafo.}
+\end{figure}
 
-La explicación de la arquitectura se realizará de manera \textit{top-down}. Se comenzará describiendo el funcionamiento general del agente, para luego profundizar en cada uno de sus componentes clave: el mecanismo de interacción con la bóveda y las estrategias para la obtención de contexto relevante.
-
-\subsection{Agente reAct}
+\section{Agente reAct}
 En el núcleo del sistema se encuentra un agente basado en el framework ReAct \parencite{yaoReActSynergizingReasoning2023}. Este paradigma permite a los modelos de lenguaje combinar el razonamiento (thought) con la acción (action). El agente opera en un ciclo donde, a partir de una tarea y una observación del entorno, razona sobre el siguiente paso a seguir, elige una herramienta de su repertorio, la ejecuta, y observa el resultado para informar su siguiente ciclo de razonamiento.
 
 Siguiendo las mejores prácticas observadas en agentes avanzados como los utilizados para investigación o codificación (e.g. \textit{Deep Research}), se ha adoptado la estrategia \textit{Plan-and-Solve} \parencite{wangPlanandSolvePromptingImproving2023}. En lugar de actuar de forma impulsiva, el agente primero genera un plan detallado y paso a paso para resolver la tarea. El usuario tiene la opción de revisar, confirmar y dar retroalimentación sobre el plan generado antes de su ejecución. Este enfoque de \textit{human-in-the-loop} combina la eficiencia del planeamiento autónomo con la supervisión y el direccionamiento estratégico del usuario.
