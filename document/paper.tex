@@ -1,47 +1,64 @@
-\documentclass[12pt]{report}
+\documentclass[11pt]{report}
+\usepackage{paper}
 
-\usepackage{paper} % Your custom style file
 \addbibresource{Thesis.bib}
-
 \begin{document}
 
 % ===== TITLE PAGE =====
 \pagenumbering{Alph}
 \hypersetup{pageanchor=false}
 \input{parts/_title}
-\cleardoublepage{}
-
+\cleardoublepage
 
 % ===== FRONT MATTER =====
 \pagenumbering{roman}
-\setcounter{page}{1} % Reset counter for Roman numerals
+\setcounter{page}{1}
 \hypersetup{pageanchor=false}
-% \input{parts/a_dedication}
+
+\input{parts/a_dedication}
 %\input{parts/b_acknowledgments}
-\setcounter{page}{1} % Reset counter for Roman numerals
+\setcounter{page}{1}
 %\input{parts/c_supervisorOpinion}
 %\input{parts/d_abstract}
 
+% ===== LISTS =====
+\input{parts/_index}
 
-\input{parts/_index.tex}
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{\contentsname}
+% \tableofcontents
+% \hypersetup{linkcolor=magenta, citecolor=green, urlcolor=magenta}
 
+% =========OTHER LISTS
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{\listfigurename}
+% \listoffigures
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{chapter}{\listtablename}
+% \listoftables
 
 % ===== MAIN CONTENT =====
-\cleardoublepage{}
-\phantomsection{}
+\cleardoublepage
+\phantomsection
 \pagenumbering{arabic}
 \setcounter{page}{1} % Reset counter for Arabic numerals
 \hypersetup{pageanchor=true}
+
 \input{parts/e_introduction}
-%\input{parts/f_proposal}
+\input{parts/f_proposal}
 %\input{parts/g_conclusions}
 
-
 % ===== BIBLIOGRAPHY =====
-\cleardoublepage{}
-\phantomsection{}
+\cleardoublepage
+\phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
-\printbibliography{}
+\printbibliography
+
+% \bibliographystyle{abbrvnat}
+% \bibliography{Thesis}
 
 % \thispagestyle{empty}% % No page number on bib
 
