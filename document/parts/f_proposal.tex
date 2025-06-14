@@ -116,74 +116,83 @@ La arquitectura basada en un agente ReAct y el sistema de obtención de contexto
 En este capítulo se presentan una serie de experimentos diseñados para evaluar el rendimiento y las capacidades del agente \textit{lImporter}. Es importante aclarar que no se realizó un análisis holístico y cuantitativo del sistema. En su lugar, se optó por explorar distintos casos de uso que demuestran la versatilidad de la herramienta y ponen de manifiesto las interesantes posibilidades que surgen al integrar un agente de lenguaje autónomo en una bóveda de conocimiento de Obsidian.
 
 \section{Base estructurada sobre Harry Potter}
-En el primer experimento, se utilizó la versatilidad del agente para una tarea clásica: la creación de una base de conocimientos estructurada sobre el universo de Harry Potter. El objetivo era proporcionar al agente los textos de los libros y pedirle que generara notas para personajes, lugares y conceptos clave, vinculándolos entre sí. Este caso de uso potencia a Obsidian como una herramienta para la exploración visual del conocimiento a través de su vista de grafo.
+En el primer experimento, se utilizó la versatilidad del agente para una tarea clásica: la creación de una base de conocimientos estructurada sobre el universo de Harry Potter. El objetivo era proporcionar al agente el PDF del primer libro y pedirle que generara notas para personajes, lugares y conceptos clave, vinculándolos entre sí. Este caso de uso potencia a Obsidian como una herramienta para la exploración visual del conocimiento a través de su vista de grafo.
 
-Es relevante mencionar que, por defecto, Obsidian no muestra etiquetas en las aristas del grafo, lo que dificulta la interpretación de la naturaleza de las relaciones. Para solventar esto, se utilizó un plugin de la comunidad que añade dicha funcionalidad. El grafo resultante, como se muestra en la Figura \ref{fig:hp_graph}, fue creado exitosamente. Una prueba de la correcta identificación de la relevancia de los conceptos se observa en el tamaño de los nodos: los nodos correspondientes a \textit{Harry Potter} y \textit{Hogwarts} son visiblemente más grandes, indicando un mayor número de conexiones y, por tanto, una mayor centralidad en la narrativa.
+Es relevante mencionar que, por defecto, Obsidian no muestra etiquetas en las aristas del grafo, lo que dificulta la interpretación de la naturaleza de las relaciones. Para solventar esto, se utilizó un plugin llamado \textit{Graph Link Types} de la comunidad que añade dicha funcionalidad. El grafo resultante, como se muestra en la Figura \ref{fig:hp_graph}, fue creado exitosamente. 
 
 \begin{figure}[h]
     \centering
-    % \includegraphics[width=0.8\textwidth]{path/to/hp_graph.png}
-    \fbox{\parbox[c][15em][c]{0.8\textwidth}{\centering \huge Placeholder: \\ Grafo de conocimiento de Harry Potter generado por el agente}}
+    \includegraphics[width=1.0\textwidth]{figures/HPKG.pdf}
+    % \fbox{\parbox[c][15em][c]{0.8\textwidth}{\centering \huge Placeholder: \\ Grafo de conocimiento de Harry Potter generado por el agente}}
     \caption{Grafo resultante del experimento de Harry Potter, mostrando la centralidad de nodos clave.}
     \label{fig:hp_graph}
+\note{En la figura, se observa que conceptos centrales como Harry Potter (resaltado en rojo) y Hogwarts (en azul) se representan con nodos de mayor tamaño. Esto se debe a que Obsidian modula el tamaño de cada nodo en función de su grado —el número de conexiones que posee—, lo que resalta visualmente la importancia de las entidades más conectadas y demuestra la utilidad de esta representación incluso para bases de conocimiento ya estructuradas.}
 \end{figure}
 
-% \subsection{Consideraciones}
-% Placeholder para el análisis del experimento.
-% - Analizar la calidad de las notas generadas.
-% - Evaluar la precisión de los vínculos creados.
-% - Discutir los desafíos encontrados, como la desambiguación de entidades.
-% \textit{Placeholder para el análisis detallado del experimento.}
+Es importante señalar que este experimento no fue diseñado con el objetivo de realizar una extracción de entidades exhaustiva y precisa. Su propósito principal era demostrar la capacidad del sistema para abordar un caso de uso estructurado con la configuración adecuada. Aun así, los resultados evidencian cómo el agente puede generar rápidamente una representación del conocimiento que es tanto visualmente atractiva como funcional, constituyendo un excelente punto de partida para el análisis preliminar de cualquier dominio.
 
-\section{Añadiendo articulos a una \textit{Wiki} tecnológica}
-Este experimento se diseñó para simular el mantenimiento y crecimiento de una base de conocimiento existente. Se partió de una bóveda de Obsidian que funcionaba como una \textit{wiki} personal sobre temas de tecnología (programación, inteligencia artificial, etc.). Progresivamente, se le proporcionaron al agente nuevos artículos, acompañados de un breve resumen en audio describiendo su contenido.
+\section{Añadiendo artículos a una \textit{Wiki} tecnológica}
+Este experimento se diseñó para simular el mantenimiento y crecimiento de una base de conocimiento existente. Se partió de una bóveda de Obsidian que funcionaba como una \textit{wiki} personal sobre temas de tecnología (programación, \textit{hardware/software}, etc.). Progresivamente, se le proporcionaron al agente nuevos archivos, acompañados de un breve audio con instrucciones.
 
-El objetivo era doble. Por un lado, se buscaba demostrar que el agente es capaz de analizar el nuevo contenido, comprenderlo en el contexto de la bóveda existente y determinar correctamente con qué notas preexistentes debía vincularlo (Figura \ref{fig:wiki_cluster}). Por otro lado, y de igual importancia, se quería verificar que el agente no siempre establece conexiones. Si un nuevo artículo trata sobre un tema completamente ajeno a lo que ya existe en la bóveda, el resultado deseable es que se cree una nota aislada, sin vínculos forzados o incorrectos (Figura \ref{fig:wiki_isolated}). Este comportamiento es crucial para mantener la integridad y la calidad del grafo de conocimiento.
-
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.45\textwidth]{path/to/wiki_cluster.png}
-    \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Cluster de notas relacionadas}}
-    \caption{Nuevas notas integradas y conectadas con el conocimiento existente en la wiki.}
-    \label{fig:wiki_cluster}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    % \includegraphics[width=0.45\textwidth]{path/to/wiki_isolated.png}
-    \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Notas aisladas sin conexión}}
-    \caption{Nuevas notas añadidas que permanecen como \textit{islas} de conocimiento, al no tener relación directa con el contenido previo.}
-    \label{fig:wiki_isolated}
+    \includegraphics[width=0.6\textwidth]{figures/WikiSamples2.png}
+    \caption{\textit{Wiki} personal sobre temas de tecnología.}
+    \label{fig:wiki_tech_graph}
 \end{figure}
 
-% \subsection{Consideraciones}
-% Placeholder para el análisis del experimento.
-% - Analizar la tasa de acierto en la vinculación.
-% - Evaluar los casos en los que decidió no vincular.
-% - Discutir cómo la granularidad del contexto influyó en la decisión.
-% \textit{Placeholder para el análisis detallado del experimento.}
+El objetivo era doble. Por un lado, se buscaba demostrar que el agente es capaz de analizar el nuevo contenido, comprenderlo en el contexto de la bóveda existente y determinar correctamente con qué notas preexistentes debía vincularlo. Por otro lado, y de igual importancia, se quería verificar que el agente no siempre establece conexiones. Si un nuevo artículo trata sobre un tema completamente ajeno a lo que ya existe en la bóveda, el resultado deseable es que se cree una nota aislada, sin vínculos forzados o incorrectos. Este comportamiento es crucial para mantener la integridad y la calidad del grafo de conocimiento.
+
+Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. En la primera, se introdujeron artículos sobre hardware neuromórfico y alternativas a \textit{backpropagation}, temas sin representación previa en la bóveda. Como se esperaba, el agente creó las notas correspondientes pero no las vinculó con el grafo existente (Figura \ref{fig:wiki_isolated}). En la segunda secuencia, se añadió una serie de artículos sobre los orígenes de las \textit{Interaction Nets} y sus aplicaciones actuales, un tema con precursores ya presentes en la wiki. En este caso, el agente sí estableció las conexiones pertinentes, integrando los nuevos nodos con el conocimiento previo (Figura \ref{fig:wiki_connected}).
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/neuromPart.png}
+        % \fbox{\parbox[c][12em][c]{0.9\textwidth}{\centering \huge Placeholder: \\ Grafo de nodo aislado}}
+        \caption{Notas sobre hardware neuromórfico sin conexiones externas a las nuevas.}
+        \label{fig:wiki_isolated}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/IntNetsPart.png}
+        % \fbox{\parbox[c][12em][c]{0.9\textwidth}{\centering \huge Placeholder: \\ Grafo local conectado}}
+        \caption{Notas sobre \textit{Interaction Nets} conectadas a notas existentes.}
+        \label{fig:wiki_connected}
+    \end{subfigure}
+    \caption{Comparación de resultados de inserción con las notas nuevas resaltadas. A la izquierda, notas nuevas sobre un tema no relacionado. A la derecha, una nota que se integra con el conocimiento existente.}
+    \label{fig:wiki_comparison}
+\note{Ambas vistas corresponden al grafo local de Obsidian. En el caso aislado (izquierda), se muestra con profundidad máxima (5), pero al no tener vínculos, solo aparecen los nodos resultantes de la secuencia de inserción. En el caso conectado (derecha), una profundidad de 1 es suficiente para visualizar las conexiones a notas existentes.}
+\end{figure}
+
+En conjunto, estos resultados verifican la versatilidad del agente para determinar, de forma autónoma, qué notas existentes son candidatas idóneas para establecer vínculos con el nuevo contenido. Esta capacidad de discernimiento, reforzada por el optimizador de contexto, es fundamental para asegurar que la base de conocimiento crezca de manera coherente y relevante.
 
 \section{Projects, Areas, Resources, Archived}
-Este experimento refleja un caso de uso más cotidiano y de productividad personal, siguiendo la metodología P.A.R.A. (Projects, Areas, Resources, Archived) popularizada por Tiago Forte en su libro \textit{Building a Second Brain} \cite{forteBuildingSecondBrain2022}. El objetivo era evaluar si el sistema puede ser utilizado para mantener una bóveda organizada bajo esta estructura, siguiendo instrucciones de voz.
+Este experimento refleja un caso de uso más cotidiano y de productividad personal, siguiendo la metodología P.A.R.A. (Projects, Areas, Resources, Archived) popularizada por \cite{forteBuildingSecondBrain2022}. El objetivo era evaluar si el sistema puede ser utilizado para mantener una bóveda organizada bajo esta estructura, siguiendo instrucciones de voz. Para ello, se realizaron experimentos donde cada petición consistía en un archivo de audio, acompañado opcionalmente por archivos de contexto adicionales.
 
-Se probó la capacidad del agente para realizar tareas como:
+Se evaluó la capacidad del modelo para realizar diversas tareas, entre las que destacan:
 \begin{itemize}
-    \item Incluir nuevos archivos (recursos) en la bóveda, clasificándolos correctamente en la carpeta `Resources`.
-    \item Vincular estos nuevos recursos con notas existentes en las carpetas `Projects` o `Areas`.
-    \item Sintetizar información a partir de varias notas existentes para generar un nuevo resumen o una nota de trabajo.
+    \item \textbf{Agregar detalles a proyectos existentes:} Por ejemplo, se solicitó añadir una nueva canción al proyecto de práctica de canto, proporcionando como contexto un documento con la letra adicional al audio con la instrucción.
+    \item \textbf{Reescribir y sintetizar información:} Se instruyó por voz al modelo para que buscara información dispersa sobre un proyecto de tesis dentro de la bóveda. El contenido encontrado fue sintetizado en un nuevo documento. Además se propusieron nuevas ideas para complementar el trabajo en un documento adicional.
+    \item \textbf{Crear nuevos proyectos:} Se crearon proyectos desde cero con indicaciones sobre sus objetivos y se vincularon a otros existentes. Por ejemplo, se generó un 'Nuevo proyecto de proyección vocal' vinculado al proyecto de 'práctica de canto'.
 \end{itemize}
-Este escenario pone a prueba no solo la interacción con el sistema de archivos, sino también la capacidad del agente para comprender la intención del usuario y ejecutar flujos de trabajo más complejos y estructurados.
 
-% \subsection{Consideraciones}
-% Placeholder para el análisis del experimento.
-% - Evaluar la capacidad del agente para seguir instrucciones complejas y multi-paso.
-% - Analizar la correcta clasificación de notas en la estructura P.A.R.A.
-% - Discutir la calidad de la información sintetizada.
-% \textit{Placeholder para el análisis detallado del experimento.}
+Adicionalmente, este experimento contaba con instrucciones para la automatización de flujos. El agente no solo procesaba la petición, sino que también extraía la transcripción a un nuevo archivo y organizaba los ficheros procesados, probando así sus capacidades para automatizar tareas. Incluir los archivos generados en este documento sería verboso y no aportaría más información que la confirmación de que fueron creados correctamente. Por ello, los resultados y los nuevos ficheros se pueden consultar en el repositorio del proyecto.
 
 \section{Note augmented \textit{LLMs} are computationally universal}
 Este último experimento, de naturaleza más teórica, se inspira en la idea de que los modelos de lenguaje, cuando se aumentan con una memoria externa, pueden volverse computacionalmente universales \parencite{schuurmansMemoryAugmentedLarge2023}.
 
 Para explorar esta idea, se le pidió al agente que evaluara la Conjetura de Collatz para un número dado, utilizando una nota de Obsidian como su \textit{memoria de trabajo} o registro. En cada paso de la secuencia, el agente leía el número actual de la nota, calculaba el siguiente número, y sobrescribía la nota con el nuevo valor.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/collatz_init_10.pdf}
+    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Contenido de la nota de Collatz}}
+    \caption{Contenido inicial de la nota de trabajo durante la evaluación de Collatz.}
+    \label{fig:collatz_code}
+\end{figure}
 
 Se evaluó el caso para $n=10$, que se resolvió correctamente en 6 iteraciones (Figuras \ref{fig:collatz_code} y \ref{fig:collatz_diff}). También se evaluaron casos más largos como $n=11$ (14 iteraciones) y $n=27$ (111 iteraciones). Este último caso excedió los límites de cuota de la API y requirió reiniciar el proceso, lo cual demostró una capacidad emergente del sistema: la posibilidad de dejar una tarea y seguirla luego, ya que el estado se preserva en la nota de Obsidian.
 
@@ -191,16 +200,9 @@ La intuición subyacente es que la capacidad de releer el estado desde un archiv
 
 \begin{figure}[h]
     \centering
-    % \includegraphics[width=0.45\textwidth]{path/to/collatz_code.png}
-    \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Contenido de la nota de Collatz}}
-    \caption{Estado de la nota de trabajo durante la evaluación de Collatz.}
-    \label{fig:collatz_code}
-\end{figure}
-\begin{figure}[h]
-    \centering
-    % \includegraphics[width=0.45\textwidth]{path/to/collatz_diff.png}
-    \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Diff entre iteraciones}}
-    \caption{Diferencia en el contenido de la nota entre dos pasos de la iteración.}
+    \includegraphics[width=1.0\textwidth]{figures/clltz_logs_10.pdf}
+    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Diff entre iteraciones}}
+    \caption{Diferencia en el contenido de la nota entre los pasos de la evaluación para $n=10$.}
     \label{fig:collatz_diff}
 \end{figure}
 
