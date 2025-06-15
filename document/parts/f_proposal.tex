@@ -10,7 +10,7 @@ donde $V'$ es la bóveda actualizada, que contiene nuevas notas, modificaciones 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/limporter.pdf}
-    \caption{Esquema general del flujo de trabajo del agente lImporter.}
+    \caption{Esquema general del flujo de trabajo del agente en lImporter.}
     \label{fig:importer_schema}
 \end{figure}
 
@@ -90,22 +90,28 @@ Esta idea está inspirada en la técnica propuesta en \cite{shenQwenLongCPRS$inf
     \item \textbf{Keyword}: Perfecto para la extracción de entidades nombradas y conceptos clave.
 \end{itemize}
 
-A continuación se presenta un pseudocódigo del proceso de obtención de contexto:
+Pseudocódigo del proceso de obtención de contexto:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/getContext.pdf}
+    % \caption{Pseudocódigo del proceso de obtención de contexto.}
+    % \label{fig:alg_cprs}
+\end{figure}
 
-\begin{verbatim}
-function getContext(files, token_limit, granularity):
-    if total_tokens(files) <= token_limit:
-        return extract_info(files, granularity)
-    else:
-        mid = floor(len(files) / 2)
-        part1 = files[0:mid]
-        part2 = files[mid:len(files)]
+% \begin{verbatim}
+% function getContext(files, token_limit, granularity):
+%     if total_tokens(files) <= token_limit:
+%         return extract_info(files, granularity)
+%     else:
+%         mid = floor(len(files) / 2)
+%         part1 = files[0:mid]
+%         part2 = files[mid:len(files)]
         
-        context1 = getContext(part1, token_limit, granularity)
-        context2 = getContext(part2, token_limit, granularity)
+%         context1 = getContext(part1, token_limit, granularity)
+%         context2 = getContext(part2, token_limit, granularity)
         
-        return combine(context1, context2)
-\end{verbatim}
+%         return combine(context1, context2)
+% \end{verbatim}
 
 \subsection{Sobre la versatibilidad del sistema}
 Un objetivo clave de \textit{lImporter} es su versatilidad para integrarse en diversos flujos de trabajo. El agente debe ser útil tanto para un usuario que desea construir una base de conocimiento densamente interconectada, generando múltiples relaciones y resúmenes, como para otro que simplemente quiere archivar un nuevo concepto de forma aislada, sin crear ningún vínculo.
@@ -169,7 +175,7 @@ Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. 
 
 En conjunto, estos resultados verifican la versatilidad del agente para determinar, de forma autónoma, qué notas existentes son candidatas idóneas para establecer vínculos con el nuevo contenido. Esta capacidad de discernimiento, reforzada por el optimizador de contexto, es fundamental para asegurar que la base de conocimiento crezca de manera coherente y relevante.
 
-\section{Projects, Areas, Resources, Archived}
+\section{\textit{Projects, Areas, Resources, Archived}}
 Este experimento refleja un caso de uso más cotidiano y de productividad personal, siguiendo la metodología \textit{P.A.R.A}. \textit{(Projects, Areas, Resources, Archived)} popularizada por \cite{forteBuildingSecondBrain2022}. El objetivo era evaluar si el sistema puede ser utilizado para mantener una bóveda organizada bajo esta estructura, siguiendo instrucciones de voz. Para ello, se realizaron experimentos donde cada petición consistía en un archivo de audio, acompañado opcionalmente por archivos de contexto adicionales.
 
 Se evaluó la capacidad del modelo para realizar diversas tareas, entre las que destacan:
