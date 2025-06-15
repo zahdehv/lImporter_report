@@ -1,16 +1,16 @@
 \chapter{lImporter}\label{chapter:proposal}
-Este capítulo presenta la propuesta de \textit{lImporter}, un plugin para Obsidian diseñado para automatizar la integración de nuevo conocimiento en una bóveda existente. El sistema recibe un conjunto de archivos y, guiado por instrucciones del usuario, genera y vincula nuevas notas de manera inteligente.
+Este capítulo presenta la propuesta de \textit{lImporter}, un plugin para \textit{Obsidian} diseñado para automatizar la integración de nuevo conocimiento en una bóveda existente. El sistema recibe un conjunto de archivos y, guiado por instrucciones del usuario, genera y vincula nuevas notas de manera inteligente.
 
-El problema fundamental que se aborda puede definirse formalmente. Se construye un Agente, $A$, que opera sobre una bóveda de Obsidian. La función del agente es transformar la bóveda a un nuevo estado basándose en un conjunto de archivos de entrada y unas instrucciones específicas.
+El problema fundamental que se aborda puede definirse formalmente. Se construye un Agente, $A$, que opera sobre una bóveda de \textit{Obsidian}. La función del agente es transformar la bóveda a un nuevo estado basándose en un conjunto de archivos de entrada y unas instrucciones específicas.
 
-Sea $V$ el estado de la bóveda, definido como un conjunto de notas en formato Markdown. Sea $F = \{f_1, f_2, \dots, f_n\}$ un conjunto de archivos de entrada y sea $I$ un conjunto de instrucciones en lenguaje natural que guían el proceso. La operación del agente se puede describir como una función:
+Sea $V$ el estado de la bóveda, definido como un conjunto de notas en formato \textit{Markdown}. Sea $F = \{f_1, f_2, \dots, f_n\}$ un conjunto de archivos de entrada y sea $I$ un conjunto de instrucciones en lenguaje natural que guían el proceso. La operación del agente se puede describir como una función:
 \[ A(F, I, V) \rightarrow V' \]
-donde $V'$ es la bóveda actualizada, que contiene nuevas notas, modificaciones a notas existentes y nuevos vínculos entre ellas, como resultado de la evaluación del agente.
+donde $V'$ es la bóveda actualizada, que contiene nuevas notas, modificaciones a notas existentes y nuevos vínculos entre ellas, como resultado de la evaluación del agente. El conjunto de archivos de entrada $F$ puede estar compuesto por múltiples formatos. Para el reconocimiento de su contenido, se aprovecha la multimodalidad nativa de los modelos \textit{Gemini} \parencite{teamGeminiFamilyHighly2024}, que pueden procesar texto, imágenes y audio directamente. Esta arquitectura es modular: el componente de extracción de contenido puede ser reemplazado fácilmente por herramientas especializadas, como un sistema de reconocimiento óptico de caracteres (\textit{OCR}) para archivos \textit{PDF} o un servicio de \textit{speech-to-text} para audio.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/limporter.pdf}
-    \caption{Esquema general del flujo de trabajo del agente en lImporter.}
+    \caption{Esquema general del flujo de trabajo del agente en \textit{lImporter}.}
     \label{fig:importer_schema}
 \end{figure}
 
@@ -19,14 +19,14 @@ Para la implementación de \textit{lImporter}, se propone un agente autónomo ba
 La explicación de la arquitectura se realizará de manera \textit{top-down}. Se comenzará describiendo el entorno y el funcionamiento general del agente, para luego profundizar en cada uno de sus componentes clave: el mecanismo de interacción con la bóveda y las estrategias para la obtención de contexto relevante.
 
 \section{Descripción del entorno}
-El entorno de trabajo para este proyecto es \textit{Obsidian}. A diferencia de otras herramientas basadas en la nube, el modelo de datos de \textit{Obsidian} es simple y robusto: una carpeta local en el sistema de archivos del usuario que contiene todos los datos. Las notas se almacenan como archivos de texto plano en formato \textit{Markdown} (`.md`), y pueden organizarse en una jerarquía de carpetas tradicional. Este enfoque garantiza la portabilidad, la longevidad y el control total del usuario sobre su información.
+El entorno de trabajo para este proyecto es \textit{Obsidian}. A diferencia de otras herramientas basadas en la nube, el modelo de datos de \textit{Obsidian} es simple y robusto: una carpeta local en el sistema de archivos del usuario que contiene todos los datos. Las notas se almacenan como archivos de texto plano en formato \textit{Markdown} (`\textit{.md}`), y pueden organizarse en una jerarquía de carpetas tradicional. Este enfoque garantiza la portabilidad, la longevidad y el control total del usuario sobre su información.
 
 Una de las características más distintivas de \textit{Obsidian} es su capacidad para visualizar las conexiones entre notas como un grafo de conocimiento. Cada nota es un nodo en el grafo, y los vínculos entre notas se representan como aristas. Esto permite al usuario descubrir relaciones emergentes y navegar por su conocimiento de una manera no lineal. El grafo de \textit{Obsidian} es un \textbf{grafo dirigido por fuerzas} (\textit{force-directed graph}), una simulación física donde los nodos se repelen entre sí, mientras que los enlaces actúan como resortes que los atraen. Este mecanismo provoca que los nodos con conexiones en común, incluso indirectas, se agrupen visualmente, revelando clústeres temáticos de forma intuitiva (ver Figura~\ref{fig:obsidian_force_graph_example}).
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.66\textwidth]{figures/obsidian_kg_example.png}
-    \caption{Ejemplo de la vista de grafo en Obsidian, mostrando nodos y sus interconexiones.}
+    \caption{Ejemplo de la vista de grafo en \textit{Obsidian}, mostrando nodos y sus interconexiones.}
     \label{fig:obsidian_graph}
 \end{figure}
 
@@ -53,7 +53,7 @@ La creación de vínculos es fundamental para construir el grafo. En \textit{Obs
 \end{figure}
 
 \section{Agente \textit{reAct}}
-En el núcleo del sistema se encuentra un agente basado en el \textit{framework ReAct} \parencite{yaoReActSynergizingReasoning2023}. Este paradigma permite a los modelos de lenguaje combinar el razonamiento (\textit{thought}) con la acción (\textit{action}). El agente opera en un ciclo donde, a partir de una tarea y una observación del entorno, razona sobre el siguiente paso a seguir, elige una herramienta de su repertorio, la ejecuta, y observa el resultado para informar su siguiente ciclo de razonamiento.
+En el núcleo del sistema se encuentra un agente basado en el \textit{framework ReAct} \parencite{yaoReActSynergizingReasoning2023}. Este paradigma permite a los modelos de lenguaje combinar el razonamiento (\textit{thought}) con la acción (\textit{action}). El agente opera en un ciclo donde, a partir de una tarea y una observación del entorno, razona sobre el siguiente paso a seguir, elige una herramienta de su repertorio, la ejecuta, y observa el resultado para informar su siguiente ciclo de razonamiento. En la práctica, este ciclo de \textit{Thought-Action-Observation} no es más que un bucle `while(true)` que se ejecuta hasta que se cumple una condición de parada. En la implementación, este bucle se acota a un número máximo de iteraciones para evitar ejecuciones infinitas. La sesión del agente finaliza de tres maneras: cuando el agente invoca una herramienta específica de finalización (e.g., \texttt{finish()}), cuando en su paso de razonamiento decide que la tarea está completa y no devuelve ninguna llamada a función, o cuando se alcanza el límite máximo de llamadas.
 
 Siguiendo las mejores prácticas observadas en agentes avanzados como los utilizados para investigación o codificación (e.g. \textit{Deep Research}), se ha adoptado la estrategia \textit{Plan-and-Solve} \parencite{wangPlanandSolvePromptingImproving2023}. En lugar de actuar de forma impulsiva, el agente primero genera un plan detallado y paso a paso para resolver la tarea. El usuario tiene la opción de revisar, confirmar y dar retroalimentación sobre el plan generado antes de su ejecución. Este enfoque de \textit{human-in-the-loop} combina la eficiencia del planeamiento autónomo con la supervisión y el direccionamiento estratégico del usuario.
 
@@ -68,7 +68,7 @@ En el caso de la \textit{API} de \textit{Gemini}, esta restricción obliga al mo
 Para la lectura de información de la bóveda, el agente dispone de dos herramientas principales:
 \begin{itemize}
     \item \texttt{tree(path)}: Esta función recibe la ruta a una carpeta raíz y devuelve una representación textual de la estructura de directorios y archivos contenida en ella, de forma análoga al comando \texttt{tree} de la línea de comandos. Esto permite al agente obtener una visión global de la organización de la bóveda.
-    \item \texttt{read(path)}: Esta función recibe la ruta a un archivo \textit{Markdown} (`.md`) existente y devuelve su contenido completo como texto.
+    \item \texttt{read(path)}: Esta función recibe la ruta a un archivo \textit{Markdown} (`\textit{.md}`) existente y devuelve su contenido completo como texto.
 \end{itemize}
  
 \subsubsection{Escritura}
@@ -90,124 +90,91 @@ Esta idea está inspirada en la técnica propuesta en \cite{shenQwenLongCPRS$inf
     \item \textbf{Keyword}: Perfecto para la extracción de entidades nombradas y conceptos clave.
 \end{itemize}
 
-Pseudocódigo del proceso de obtención de contexto:
+% Pseudocódigo del proceso de obtención de contexto:
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{figures/getContext.pdf}
-    % \caption{Pseudocódigo del proceso de obtención de contexto.}
-    % \label{fig:alg_cprs}
+    % \begin{verbatim}
+    % function getContext(files, token_limit, granularity):
+    %     if total_tokens(files) <= token_limit:
+    %         return extract_info(files, granularity)
+    %     else:
+    %         mid = floor(len(files) / 2)
+    %         part1 = files[0:mid]
+    %         part2 = files[mid:len(files)]
+            
+    %         context1 = getContext(part1, token_limit, granularity)
+    %         context2 = getContext(part2, token_limit, granularity)
+            
+    %         return combine(context1, context2)
+    % \end{verbatim}
+    \caption{Pseudocódigo del proceso de obtención de contexto.}
+    \label{fig:alg_cprs}
 \end{figure}
 
-% \begin{verbatim}
-% function getContext(files, token_limit, granularity):
-%     if total_tokens(files) <= token_limit:
-%         return extract_info(files, granularity)
-%     else:
-%         mid = floor(len(files) / 2)
-%         part1 = files[0:mid]
-%         part2 = files[mid:len(files)]
-        
-%         context1 = getContext(part1, token_limit, granularity)
-%         context2 = getContext(part2, token_limit, granularity)
-        
-%         return combine(context1, context2)
-% \end{verbatim}
 
 \subsection{Sobre la versatibilidad del sistema}
 Un objetivo clave de \textit{lImporter} es su versatilidad para integrarse en diversos flujos de trabajo. El agente debe ser útil tanto para un usuario que desea construir una base de conocimiento densamente interconectada, generando múltiples relaciones y resúmenes, como para otro que simplemente quiere archivar un nuevo concepto de forma aislada, sin crear ningún vínculo.
 
-La arquitectura basada en un agente \textit{ReAct} y el sistema de obtención de contexto granular sustentan esta flexibilidad. El agente puede recibir instrucciones para ser exhaustivo en la búsqueda de conexiones o, por el contrario, para limitarse a crear una nota y guardarla en una carpeta específica. Sin embargo, esta versatilidad conlleva un incremento en la labor manual de configuración inicial, ya que el comportamiento del agente se define en gran medida a través de un archivo de instrucciones proporcionado por el usuario.
+La arquitectura basada en un agente \textit{ReAct} y el sistema de obtención de contexto granular sustentan esta flexibilidad. El agente puede recibir instrucciones para ser exhaustivo en la búsqueda de conexiones o, por el contrario, para limitarse a crear una nota y guardarla en una carpeta específica. Un ejemplo claro de esta flexibilidad es el proceso de selección de la ubicación para las nuevas notas. El sistema no prefija una carpeta de destino. En su lugar, el agente decide la ruta óptima en tiempo de ejecución basándose en una combinación de factores: las instrucciones iniciales del usuario, y las directrices que puede encontrar dentro del contenido de los propios archivos de entrada. Se le puede instruir, por ejemplo, para que lea un archivo \texttt{\_index.md} que guíe la organización de un subdirectorio. Esta libertad permite al usuario implementar tanto estructuras rígidas como flujos de trabajo donde las notas se crean de manera dispersa y emergente. Para garantizar la integridad de la bóveda, aunque el agente puede explorar cualquier ruta desde la raíz para tomar su decisión, al momento de ejecutar la acción de escritura, los parámetros de la función se validan. Como se mencionó, se le presenta al modelo una lista de las carpetas existentes en un formato `\textit{ENUM}`, lo que restringe su elección a una ruta válida y previene errores.
 
-\chapter{Experimentos}\label{chapter:implementation}
-En este capítulo se presentan una serie de experimentos diseñados para evaluar el rendimiento y las capacidades del agente \textit{lImporter}. Es importante aclarar que no se realizó un análisis holístico y cuantitativo del sistema. En su lugar, se optó por explorar distintos casos de uso que demuestran la versatilidad de la herramienta y ponen de manifiesto las interesantes posibilidades que surgen al integrar un agente de lenguaje autónomo en una bóveda de conocimiento de Obsidian.
-
-\section{Base estructurada sobre \textit{Harry Potter}}
-En el primer experimento, se utilizó la versatilidad del agente para una tarea clásica: la creación de una base de conocimientos estructurada sobre el universo de \textit{Harry Potter}. El objetivo era proporcionar al agente el \textit{PDF} del primer libro y pedirle que generara notas para personajes, lugares y conceptos clave, vinculándolos entre sí. Este caso de uso potencia a Obsidian como una herramienta para la exploración visual del conocimiento a través de su vista de grafo.
-
-Es relevante mencionar que, por defecto, Obsidian no muestra etiquetas en las aristas del grafo, lo que dificulta la interpretación de la naturaleza de las relaciones. Para solventar esto, se utilizó un plugin llamado \textit{Graph Link Types} de la comunidad que añade dicha funcionalidad. El grafo resultante, como se muestra en la Figura \ref{fig:hp_graph}, fue creado exitosamente. 
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{figures/HPKG.pdf}
-    % \fbox{\parbox[c][15em][c]{0.8\textwidth}{\centering \huge Placeholder: \\ Grafo de conocimiento de Harry Potter generado por el agente}}
-    \caption{Grafo resultante del experimento de \textit{Harry Potter}, mostrando la centralidad de nodos clave.}
-    \label{fig:hp_graph}
-\note{En la figura, se observa que conceptos centrales como \textit{Harry Potter} (resaltado en rojo) y \textit{Hogwarts} (en azul) se representan con nodos de mayor tamaño. Esto se debe a que \textit{Obsidian} modula el tamaño de cada nodo en función de su grado —el número de conexiones que posee—, lo que resalta visualmente la importancia de las entidades más conectadas y demuestra la utilidad de esta representación incluso para bases de conocimiento ya estructuradas.}
-\end{figure}
-
-Es importante señalar que este experimento no fue diseñado con el objetivo de realizar una extracción de entidades exhaustiva y precisa. Su propósito principal era demostrar la capacidad del sistema para abordar un caso de uso estructurado con la configuración adecuada. Aun así, los resultados evidencian cómo el agente puede generar rápidamente una representación del conocimiento que es tanto visualmente atractiva como funcional, constituyendo un excelente punto de partida para el análisis preliminar de cualquier dominio.
-
-\section{Añadiendo artículos a una \textit{Wiki} tecnológica}
-Este experimento se diseñó para simular el mantenimiento y crecimiento de una base de conocimiento existente. Se partió de una bóveda de \textit{Obsidian} que funcionaba como una \textit{wiki} personal sobre temas de tecnología (programación, \textit{hardware/software}, etc.). Progresivamente, se le proporcionaron al agente nuevos archivos, acompañados de un breve audio con instrucciones.
+Sin embargo, esta versatilidad conlleva un incremento en la labor manual de configuración inicial, ya que el comportamiento del agente se define en gran medida a través de un archivo de instrucciones proporcionado por el usuario.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/WikiSamples2.png}
-    \caption{\textit{Wiki} personal sobre temas de tecnología.}
-    \label{fig:wiki_tech_graph}
+    \includegraphics[width=\textwidth]{figures/pseudoConstrnt.pdf}
+    \caption{Flujo de decodificación restringida para la interacción con el sistema de archivos. El agente expresa una intención, el sistema traduce las rutas válidas en restricciones y la API del modelo genera una llamada a herramienta que está garantizada para ser ejecutable.}
+    \label{fig:constrained_decoding}
+    \note{Es importante aclarar que, al momento de la implementación, la API de \textit{Gemini} no soporta de forma nativa la validación de parámetros mediante expresiones regulares (\textit{regex}) en la definición de herramientas. Sin embargo, en la práctica, el modelo rara vez comete errores en la generación de nombres de archivo con el formato adecuado (por ejemplo, omitiendo la extensión \texttt{.md}). En cualquier caso, esta validación se puede implementar de forma trivial como un paso de post-procesamiento: el sistema recibe la llamada a la función generada por el modelo y verifica la validez del nombre del archivo antes de ejecutar la acción de escritura en el disco.}
 \end{figure}
-
-El objetivo era doble. Por un lado, se buscaba demostrar que el agente es capaz de analizar el nuevo contenido, comprenderlo en el contexto de la bóveda existente y determinar correctamente con qué notas preexistentes debía vincularlo. Por otro lado, y de igual importancia, se quería verificar que el agente no siempre establece conexiones. Si un nuevo artículo trata sobre un tema completamente ajeno a lo que ya existe en la bóveda, el resultado deseable es que se cree una nota aislada, sin vínculos forzados o incorrectos. Este comportamiento es crucial para mantener la integridad y la calidad del grafo de conocimiento.
-
-Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. En la primera, se introdujeron artículos sobre hardware neuromórfico y alternativas a \textit{backpropagation}, temas sin representación previa en la bóveda. Como se esperaba, el agente creó las notas correspondientes pero no las vinculó con el grafo existente (Figura \ref{fig:wiki_isolated}). En la segunda secuencia, se añadió una serie de artículos sobre los orígenes de las \textit{Interaction Nets} y sus aplicaciones actuales, un tema con precursores ya presentes en la \textit{wiki}. En este caso, el agente sí estableció las conexiones pertinentes, integrando los nuevos nodos con el conocimiento previo (Figura \ref{fig:wiki_connected}).
 
 \begin{figure}[h!]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/neuromPart.png}
-        % \fbox{\parbox[c][12em][c]{0.9\textwidth}{\centering \huge Placeholder: \\ Grafo de nodo aislado}}
-        \caption{Notas sobre hardware neuromórfico sin conexiones externas a las nuevas.}
-        \label{fig:wiki_isolated}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.5\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/IntNetsPart.png}
-        % \fbox{\parbox[c][12em][c]{0.9\textwidth}{\centering \huge Placeholder: \\ Grafo local conectado}}
-        \caption{Notas sobre \textit{Interaction Nets} conectadas a notas existentes.}
-        \label{fig:wiki_connected}
-    \end{subfigure}
-    \caption{Comparación de resultados de inserción con las notas nuevas resaltadas.}
-    \label{fig:wiki_comparison}
-\note{Ambas vistas corresponden al grafo local de Obsidian. En el caso aislado (izquierda), se muestra con profundidad máxima (5), pero al no tener vínculos, solo aparecen los nodos resultantes de la secuencia de inserción. En el caso conectado (derecha), una profundidad de 1 es suficiente para visualizar las conexiones a notas existentes.}
-\end{figure}
+    \includegraphics[width=1.0\textwidth]{figures/pseudoReAct.pdf}
+% \begin{verbatim}
+%     function react_agent(task, files, tools, model, max_steps, auto_accept_plan=false):
+%     // --- Fase 1: Planificación (Estrategia Plan-and-Solve) ---
+%     // Se crea un prompt inicial para que el agente genere un plan.
+%     // Se 'fuerza' al modelo a usar una herramienta 'propose_plan' para asegurar
+%     // que su primera acción sea la creación de un plan estructurado.
+%     planning_prompt = create_planning_prompt(task, files, tools)
+%     plan_response = model.generate(planning_prompt, forced_tool="propose_plan")
+%     proposed_plan = extract_plan_from_response(plan_response)
 
-En conjunto, estos resultados verifican la versatilidad del agente para determinar, de forma autónoma, qué notas existentes son candidatas idóneas para establecer vínculos con el nuevo contenido. Esta capacidad de discernimiento, reforzada por el optimizador de contexto, es fundamental para asegurar que la base de conocimiento crezca de manera coherente y relevante.
+%     // --- Fase de Intervención Humana (Human-in-the-loop) ---
+%     // El plan puede ser auto-aceptado o requerir confirmación del usuario.
+%     if not auto_accept_plan:
+%         final_plan = user_confirm_or_edit(proposed_plan)
+%         if not final_plan:
+%             return "Ejecución cancelada por el usuario."
+%     else:
+%         final_plan = proposed_plan
+    
+%     // --- Fase 2: Ejecución del Plan con el ciclo ReAct ---
+%     // El plan aprobado se añade al historial para guiar los siguientes pasos del agente.
+%     prompt = create_execution_prompt(task, files, final_plan, tools)
 
-\section{\textit{Projects, Areas, Resources, Archived}}
-Este experimento refleja un caso de uso más cotidiano y de productividad personal, siguiendo la metodología \textit{P.A.R.A}. \textit{(Projects, Areas, Resources, Archived)} popularizada por \cite{forteBuildingSecondBrain2022}. El objetivo era evaluar si el sistema puede ser utilizado para mantener una bóveda organizada bajo esta estructura, siguiendo instrucciones de voz. Para ello, se realizaron experimentos donde cada petición consistía en un archivo de audio, acompañado opcionalmente por archivos de contexto adicionales.
+%     for i in 1 to max_steps:
+%     // 1. Reason (Thought) & 2. Action
+%         response = model.generate(prompt)
+%         action = extract_action(response) // e.g., {name: "tool_name", args: {...}}
 
-Se evaluó la capacidad del modelo para realizar diversas tareas, entre las que destacan:
-\begin{itemize}
-    \item \textbf{Agregar detalles a proyectos existentes:} Por ejemplo, se solicitó añadir una nueva canción al proyecto de práctica de canto, proporcionando como contexto un documento con la letra adicional al audio con la instrucción.
-    \item \textbf{Reescribir y sintetizar información:} Se instruyó por voz al modelo para que buscara información dispersa sobre un proyecto de tesis dentro de la bóveda. El contenido encontrado fue sintetizado en un nuevo documento. Además se propusieron nuevas ideas para complementar el trabajo en un documento adicional.
-    \item \textbf{Crear nuevos proyectos:} Se crearon proyectos desde cero con indicaciones sobre sus objetivos y se vincularon a otros existentes. Por ejemplo, se generó un 'Nuevo proyecto de proyección vocal' vinculado al proyecto de 'práctica de canto'.
-\end{itemize}
+%         if not action or action.name == "finish":
+%             print("Tarea completada.")
+%             return extract_final_answer(response)
 
-Adicionalmente, este experimento contaba con instrucciones para la automatización de flujos. El agente no solo procesaba la petición, sino que también extraía la transcripción a un nuevo archivo y organizaba los ficheros procesados, probando así sus capacidades para automatizar tareas. Incluir los archivos generados en este documento sería verboso y no aportaría más información que la confirmación de que fueron creados correctamente. Por ello, los resultados y los nuevos ficheros se pueden consultar en el repositorio del proyecto.
+%         // 3. Observation
+%         tool_to_call = tools.get(action.name)
+%         observation = tool_to_call.execute(action.args)
 
-\section{\textit{Note augmented LLMs are computationally universal}}
-Este último experimento, de naturaleza más teórica, se inspira en la idea de que los modelos de lenguaje, cuando se aumentan con una memoria externa, pueden volverse computacionalmente universales \parencite{schuurmansMemoryAugmentedLarge2023}.
+%         // Se actualiza el prompt con el resultado de la acción para el siguiente ciclo.
+%         prompt += f"\nAction: {action.name}({action.args})"
+%         prompt += f"\nObservation: {observation}\nThought:"
 
-Para explorar esta idea, se le pidió al agente que evaluara la Conjetura de Collatz para un número dado, utilizando una nota de \textit{Obsidian} como su \textit{memoria de trabajo} o registro. En cada paso de la secuencia, el agente leía el estado actual de la nota, calculaba el siguiente número, y sobrescribía la nota con el nuevo valor.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{figures/collatz_init_10.pdf}
-    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Contenido de la nota de Collatz}}
-    \caption{Contenido inicial de la nota de trabajo para $n=10$ en la evaluación de Collatz.}
-    \label{fig:collatz_code}
-\end{figure}
-
-Se evaluó el caso para $n=10$, que se resolvió correctamente en 6 iteraciones (Figuras \ref{fig:collatz_code} y \ref{fig:collatz_diff}). También se evaluaron casos más largos como $n=11$ (14 iteraciones) y $n=27$ (111 iteraciones). Este último caso excedió los límites de cuota de la API y requirió reiniciar el proceso, lo cual demostró una capacidad emergente del sistema: la posibilidad de dejar una tarea y seguirla luego, ya que el estado se preserva en la nota de \textit{Obsidian}.
-
-La intuición subyacente es que la capacidad de releer el estado desde un archivo fiable reduce drásticamente la probabilidad de error en un proceso iterativo largo, de manera análoga a cómo una \textit{CPU} depende de leer y escribir correctamente en sus registros. En este caso se usó un modelo potente en razonamiento algebraico (\textit{Gemini 2.5 Flash}). Si bien un modelo más modesto podría fallar en esta tarea matemática, la misma arquitectura podría permitirle automatizar con alta fiabilidad otra tarea iterativa que se alinee con sus fortalezas (por ejemplo, un análisis de sentimiento refinado a lo largo de múltiples revisiones), siempre que sea proficiente en las operaciones básicas de leer y escribir en su memoria externa.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{figures/clltz_logs_10.pdf}
-    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Diff entre iteraciones}}
-    \caption{Diferencia en el contenido de la nota entre los pasos de la evaluación para $n=10$.}
-    \label{fig:collatz_diff}
+%     print("Límite de pasos alcanzado.")
+%     return "Tarea no completada."
+% \end{verbatim}
+    \caption{Pseudocódigo del ciclo de ejecución del agente \textit{ReAct}.}
+    \label{fig:react_agent_pseudocode}
+    \note{Cabe señalar que el pseudocódigo presentado es una representación conceptual y simplificada del ciclo \textit{ReAct}. En la práctica, se usa una implementación más sofisticada del paradigma. En lugar de gestionar el flujo mediante la concatenación manual de prefijos de texto (como \texttt{Thought:} u \texttt{Observation:}), una técnica común en tareas de predicción de texto simple, la interacción se gestiona de forma más integrada a través de la API del modelo. Esto implica mantener un historial de conversación estructurado, donde cada llamada a una herramienta y su correspondiente resultado (la observación) se añaden como mensajes distintos en el diálogo, aprovechando directamente las capacidades nativas de \textit{function calling}.}
 \end{figure}
