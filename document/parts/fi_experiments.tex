@@ -33,7 +33,7 @@ El objetivo era doble. Por un lado, se buscaba demostrar que el agente es capaz 
 
 \newpage
 
-Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. En la primera, se introdujeron artículos sobre \textit{hardware} neuromórfico y alternativas a \textit{backpropagation}, temas sin representación previa en la bóveda. Como se esperaba, el agente creó las notas correspondientes (visibles en su totalidad en la Figura \ref{fig:wiki_isolated}) pero no las vinculó con el grafo existente. En la segunda secuencia, se añadió una serie de artículos sobre los orígenes de las \textit{Interaction Nets} y sus aplicaciones actuales. En este caso, el agente creó las siguientes notas, vinculándolas a 7 notas preexistentes:
+Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. En la primera, se introdujeron artículos sobre \textit{hardware} neuromórfico y dos alternativas a \textit{backpropagation}, temas sin representación previa en la bóveda. Como se esperaba, el agente creó las notas correspondientes (visibles en su totalidad en la Figura \ref{fig:wiki_isolated}) pero no las vinculó con el grafo existente. En la segunda secuencia, se añadió una serie de artículos sobre los orígenes de las \textit{Interaction Nets} y sus aplicaciones actuales. En este caso, el agente creó las siguientes notas, vinculándolas a 7 notas preexistentes:
 \begin{itemize}
     \item \textit{Interaction Nets.md}
     \item \textit{Interaction Combinators.md}
@@ -93,13 +93,13 @@ Adicionalmente, este experimento contaba con instrucciones para la automatizaci�
 \section{\textit{Note augmented LLMs are computationally universal}}
 Este último experimento, de naturaleza más teórica, se inspira en la idea de que los modelos de lenguaje, cuando se aumentan con una memoria externa, pueden volverse computacionalmente universales \parencite{schuurmansMemoryAugmentedLarge2023}.
 
-Para explorar esta idea, se le pidió al agente que evaluara la Conjetura de Collatz para un número dado, utilizando una nota de \textit{Obsidian} como su \textit{memoria de trabajo} o registro. En cada paso de la secuencia, el agente leía el estado actual de la nota, calculaba el siguiente número, y sobrescribía la nota con el nuevo valor.
+Para explorar esta idea, se le pidió al agente que evaluara la Conjetura de \textit{Collatz} para un número dado, utilizando una nota de \textit{Obsidian} como su \textit{memoria de trabajo} o registro. En cada paso de la secuencia, el agente leía el estado actual de la nota, calculaba el siguiente número, y sobrescribía la nota con el nuevo valor.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{figures/collatz_init_10.pdf}
-    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Contenido de la nota de Collatz}}
-    \caption{Contenido inicial de la nota de trabajo para $n=10$ en la evaluación de Collatz.}
+    % \fbox{\parbox[c][15em][c]{0.45\textwidth}{\centering \huge Placeholder: \\ Contenido de la nota de \textit{Collatz}}}
+    \caption{Contenido inicial de la nota de trabajo para $n=10$ en la evaluación de \textit{Collatz}.}
     \label{fig:collatz_code}
 \end{figure}
 
