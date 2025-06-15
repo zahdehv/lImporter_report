@@ -2,7 +2,9 @@
 En este capítulo se presentan una serie de experimentos diseñados para evaluar el rendimiento y las capacidades del agente \textit{lImporter}. Es importante aclarar que no se realizó un análisis holístico y cuantitativo del sistema. En su lugar, se optó por explorar distintos casos de uso que demuestran la versatilidad de la herramienta y ponen de manifiesto las interesantes posibilidades que surgen al integrar un agente de lenguaje autónomo en una bóveda de conocimiento de \textit{Obsidian}.
 
 \section{Base estructurada sobre \textit{Harry Potter}}
-En el primer experimento, se utilizó la versatilidad del agente para una tarea clásica: la creación de una base de conocimientos estructurada sobre el universo de \textit{Harry Potter}. El objetivo era proporcionar al agente el \textit{PDF} del primer libro y pedirle que generara notas para personajes, lugares y conceptos clave, vinculándolos entre sí. El agente generó exitosamente un total de 296 notas (entidades) y 671 enlaces entre ellas. Este caso de uso potencia a \textit{Obsidian} como una herramienta para la exploración visual del conocimiento a través de su vista de grafo.
+En el primer experimento, se utilizó la versatilidad del agente para una tarea clásica: la creación de una base de conocimientos estructurada sobre el universo de \textit{Harry Potter}. El objetivo era proporcionar al agente el \textit{PDF} del primer libro y pedirle que generara notas para personajes, lugares y conceptos clave, vinculándolos entre sí. El agente generó exitosamente un total de 296 notas (entidades) y 671 enlaces entre ellas. 
+
+% Este caso de uso potencia a \textit{Obsidian} como una herramienta para la exploración visual del conocimiento a través de su vista de grafo.
 
 Es relevante mencionar que, por defecto, \textit{Obsidian} no muestra etiquetas en las aristas del grafo, lo que dificulta la interpretación de la naturaleza de las relaciones. Para solventar esto, se utilizó un \textit{plugin} llamado \textit{Graph Link Types} de la comunidad que añade dicha funcionalidad. El grafo resultante, como se muestra en la Figura \ref{fig:hp_graph}, fue creado exitosamente. 
 
@@ -28,6 +30,8 @@ Este experimento se diseñó para simular el mantenimiento y crecimiento de una 
 \end{figure}
 
 El objetivo era doble. Por un lado, se buscaba demostrar que el agente es capaz de analizar el nuevo contenido, comprenderlo en el contexto de la bóveda existente y determinar correctamente con qué notas preexistentes debía vincularlo. Por otro lado, y de igual importancia, se quería verificar que el agente no siempre establece conexiones. Si un nuevo artículo trata sobre un tema completamente ajeno a lo que ya existe en la bóveda, el resultado deseable es que se cree una nota aislada, sin vínculos forzados o incorrectos. Este comportamiento es crucial para mantener la integridad y la calidad del grafo de conocimiento.
+
+\newpage
 
 Para evaluar estos comportamientos, se realizaron dos secuencias de inserción. En la primera, se introdujeron artículos sobre \textit{hardware} neuromórfico y alternativas a \textit{backpropagation}, temas sin representación previa en la bóveda. Como se esperaba, el agente creó las notas correspondientes (visibles en su totalidad en la Figura \ref{fig:wiki_isolated}) pero no las vinculó con el grafo existente. En la segunda secuencia, se añadió una serie de artículos sobre los orígenes de las \textit{Interaction Nets} y sus aplicaciones actuales. En este caso, el agente creó las siguientes notas, vinculándolas a 7 notas preexistentes:
 \begin{itemize}
@@ -72,7 +76,9 @@ Se evaluó la capacidad del modelo para realizar diversas tareas, entre las que 
     \item \textbf{Crear nuevos proyectos:} Se crearon proyectos desde cero con indicaciones sobre sus objetivos y se vincularon a otros existentes. Por ejemplo, se generó un 'Nuevo proyecto de proyección vocal' vinculado al proyecto de 'práctica de canto'.
 \end{itemize}
 
-Como resultado de estas 4 peticiones, se crearon un total de 6 notas nuevas, sin incluir los archivos de transcripción. La Figura \ref{fig:para_synthesis} muestra un ejemplo de una de estas notas generadas, donde se sintetiza información dispersa y se vincula con otros proyectos.
+\newpage
+
+Como resultado de estas 4 peticiones, se crearon un total de 6 notas nuevas, sin incluir los archivos de transcripción. La Figura \ref{fig:para_synthesis} muestra un ejemplo de una de estas notas generadas, donde se sintetiza información dispersa y se vincula con otras notas.
 
 \begin{figure}[h!]
     \centering
