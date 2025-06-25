@@ -19,16 +19,51 @@ Junio de 2025
 ---
 
 <!-- _header: Personal Knowledge Management -->
-<!-- _footer: Note-taking: Cornell Notes -->
+<!-- _footer: Linear Note-taking: Outline Method -->
 
-![bg w:640px](img/cornell.png)
+![bg w:640px](img/outline_m.png)
 
 ---
 
 <!-- _header: Personal Knowledge Management -->
-<!-- _footer: Note-taking -->
+<!-- _footer: Linear Note-taking: Sentence Method -->
 
-#### {placeholder para ejemplos de metodologias de toma de notas P2}
+![bg w:600px](img/sentence_m.png)
+
+---
+
+<!-- _header: Personal Knowledge Management -->
+<!-- _footer: Non-Linear Note-taking: Charting -->
+
+![bg w:700px](img/charting_m.png)
+
+---
+
+<!-- _header: Personal Knowledge Management -->
+<!-- _footer: Non-Linear Note-taking: Mind Mapping -->
+
+![bg w:640px](img/mapping.png)
+
+---
+
+<!-- _header: Personal Knowledge Management -->
+<!-- _footer: Note-taking: Cornell Notes -->
+
+![bg w:530px](img/cornell_m.png)
+
+---
+
+<!-- _header: Personal Knowledge Management -->
+<!-- _footer: Org. Note-taking: Zettelkasten -->
+
+![bg w:700px](img/Zettelkasten_paper_schematic.png)
+
+---
+
+<!-- _header: Personal Knowledge Management -->
+<!-- _footer: Org. Note-taking: P.A.R.A -->
+
+![bg w:900px](img/PARA.webp)
 
 ---
 
