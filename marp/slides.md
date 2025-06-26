@@ -74,17 +74,26 @@ Junio de 2025
 
 ---
 
+<!-- _header: The problem -->
+<!-- _footer: Laborious process of integrating new knowledge to a knowledge base -->
+
 ![width:1000px](img/problem.png)
 
 ---
 
 <!-- _class: invert -->
 
+<!-- _header: The context -->
+<!-- _footer: What we have -->
+
 ![width:880px](img/pkmllmpre.png)
 
 ---
 
 <!-- _class: invert -->
+
+<!-- _header: The context -->
+<!-- _footer: What we want -->
 
 ![width:880px](img/pkmllmpost.png)
 
